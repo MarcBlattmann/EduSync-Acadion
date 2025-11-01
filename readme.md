@@ -2,7 +2,7 @@
 
 > Grade system data and small utilities to convert and describe academic grades from various national systems.
 
-Package: `edusync-acadion` • Version: 1.0.3 • License: MIT
+![NPM Version](https://img.shields.io/npm/v/edusync-acadion)
 
 ## What this is
 
@@ -25,5 +25,6 @@ Contributions are welcome. Recommended workflow:
 2. Add or update systems in `data/systems.json` (one system per object)
 3. Update `last_modified` and include a short note in a PR description explaining the source
 4. Run any local checks and open a PR
+
 
 
