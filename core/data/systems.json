@@ -8,14 +8,46 @@
             "passing_percent": 55,
             "satisfactory_percent": 75,
             "mappings": [
-                { "grade": 1, "min_percent": 0,  "max_percent": 14.9, "description": "Very poor" },
-                { "grade": 2, "min_percent": 15,  "max_percent": 34.9, "description": "Poor" },
-                { "grade": 3, "min_percent": 35,  "max_percent": 54.9, "description": "Insufficient" },
-                { "grade": 4, "min_percent": 55, "max_percent": 64.9, "description": "Sufficient" },
-                { "grade": 4.5, "min_percent": 65, "max_percent": 74.9, "description": "Satisfying" },
-                { "grade": 5, "min_percent": 75, "max_percent": 84.9, "description": "Good" },
-                { "grade": 5.5, "min_percent": 85, "max_percent": 94.9, "description": "Good to very good" },
-                { "grade": 6, "min_percent": 95, "max_percent": 100, "description": "Very good" }
+                { "grade": 1,   "percent": 0,    "description": "Very poor" },
+                { "grade": 2,   "percent": 25,   "description": "Poor" },
+                { "grade": 3,   "percent": 45,   "description": "Insufficient" },
+                { "grade": 4,   "percent": 60,   "description": "Sufficient" },
+                { "grade": 4.5, "percent": 70,   "description": "Satisfying" },
+                { "grade": 5,   "percent": 80,   "description": "Good" },
+                { "grade": 5.5, "percent": 90,   "description": "Good to very good" },
+                { "grade": 6,   "percent": 100,  "description": "Very good" }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Portugal-Basic",
+            "last_modified": "2025-11-01",
+            "used_in": ["PT"],
+            "passing_percent": 50,
+            "satisfactory_percent": 70,
+            "mappings": [
+                { "grade": 1, "percent": 0,    "description": "Poor" },
+                { "grade": 2, "percent": 25,   "description": "Unsatisfactory" },
+                { "grade": 3, "percent": 50,   "description": "Satisfactory" },
+                { "grade": 4, "percent": 80,   "description": "Good" },
+                { "grade": 5, "percent": 100,  "description": "Very good" }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Portugal-Advanced",
+            "last_modified": "2025-11-01",
+            "used_in": ["PT"],
+            "passing_percent": 50,
+            "satisfactory_percent": 70,
+            "mappings": [
+                { "grade": 0,   "percent": 0,    "description": "Poor" },
+                { "grade": 3.5, "percent": 17.5, "description": "Weak" },
+                { "grade": 9.5, "percent": 47.5, "description": "Sufficient" },
+                { "grade": 13.5,"percent": 67.5, "description": "Good" },
+                { "grade": 15.5,"percent": 77.5, "description": "Very good" },
+                { "grade": 17.5,"percent": 87.5, "description": "Excellent" },
+                { "grade": 20,  "percent": 100,  "description": "Excellent" }
             ]
         }
     ]
