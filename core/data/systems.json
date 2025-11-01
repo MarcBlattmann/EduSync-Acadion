@@ -6,6 +6,7 @@
             "last_modified": "2025-11-01",
             "used_in": ["CH"],
             "passing_percent": 55,
+            "satisfactory_percent": 75,
             "mappings": [
                 { "grade": 1, "min_percent": 0,  "max_percent": 14.9, "description": "Very poor" },
                 { "grade": 2, "min_percent": 15,  "max_percent": 34.9, "description": "Poor" },
