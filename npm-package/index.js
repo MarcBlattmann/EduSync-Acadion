@@ -23,6 +23,8 @@ function getSystemById(id) {
  * @param { number } grade 
  * @returns { number } The grade converted to a grade percentage.
  * @throws { Error } If the Grade-system is not found.
+ * @example
+ * convertToPercent(1, 5); // returns 80
  */
 function convertToPercent(systemId, grade) {
   const system = getSystemById(systemId);
@@ -54,6 +56,8 @@ function getColor(systemId, grade) {
  * @param { number } systemId 
  * @param { number } grade 
  * @returns { string|null } The description of the grade or null if not found.
+ * @example
+ * getGradeDescription(1, 5); // returns "Good"
  */
 function getGradeDescription(systemId, grade) {
   const system = getSystemById(systemId);
