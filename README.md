@@ -8,7 +8,6 @@
 
 This repository provides utilities to work with grade-systems: look up systems, convert a grade to a percent, get a color indicator (pass/satisfactory/fail) and human-friendly grade descriptions.
 
-
 ## Install
 
 Install from npm:
