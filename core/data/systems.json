@@ -3,18 +3,19 @@
         {
             "id": 1,
             "name": "Switzerland-1",
-            "passing": 55,
+            "last_modified": "2025-11-01",
+            "used_in": ["CH"],
+            "passing_percent": 55,
             "mappings": [
-                { "grade": 1, "min": 0,  "max": 14.9, "description": "Very poor" },
-                { "grade": 2, "min": 15,  "max": 34.9, "description": "Poor" },
-                { "grade": 3, "min": 35,  "max": 54.9, "description": "Insufficient" },
-                { "grade": 4, "min": 55, "max": 64.9, "description": "Sufficient" },
-                { "grade": 4.5, "min": 65, "max": 74.9, "description": "Satisfying" },
-                { "grade": 5, "min": 75, "max": 84.9, "description": "Good" },
-                { "grade": 5.5, "min": 85, "max": 94.9, "description": "Good to very good" },
-                { "grade": 6, "min": 95, "max": 100, "description": "Very good" }
+                { "grade": 1, "min_percent": 0,  "max_percent": 14.9, "description": "Very poor" },
+                { "grade": 2, "min_percent": 15,  "max_percent": 34.9, "description": "Poor" },
+                { "grade": 3, "min_percent": 35,  "max_percent": 54.9, "description": "Insufficient" },
+                { "grade": 4, "min_percent": 55, "max_percent": 64.9, "description": "Sufficient" },
+                { "grade": 4.5, "min_percent": 65, "max_percent": 74.9, "description": "Satisfying" },
+                { "grade": 5, "min_percent": 75, "max_percent": 84.9, "description": "Good" },
+                { "grade": 5.5, "min_percent": 85, "max_percent": 94.9, "description": "Good to very good" },
+                { "grade": 6, "min_percent": 95, "max_percent": 100, "description": "Very good" }
             ]
-        },
-        {}
+        }
     ]
 }
