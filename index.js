@@ -1,4 +1,4 @@
-const systems = require('../core/data/systems.json');
+const systems = require('./data/systems.json');
 
 function getAllSystems() {
   return systems;

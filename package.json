@@ -1,6 +1,6 @@
 {
   "name": "edusync-acadion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Grade system data and utilities for academic grading worldwide.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -11,7 +11,13 @@
     "type": "git",
     "url": "git+https://github.com/MarcBlattmann/EduSync-Acadion.git"
   },
-  "keywords": ["grades", "grading", "academic", "education", "conversion"],
+  "keywords": [
+    "grades",
+    "grading",
+    "academic",
+    "education",
+    "conversion"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
