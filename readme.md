@@ -6,7 +6,7 @@
 
 ## What this is
 
-This repository provides a curated collection of grade systems (as JSON) and tiny utilities to work with them: look up systems, convert a grade to a percent, get a color indicator (pass/satisfactory/fail) and human-friendly grade descriptions.
+This repository provides utilities to work with grade-systems: look up systems, convert a grade to a percent, get a color indicator (pass/satisfactory/fail) and human-friendly grade descriptions.
 
 
 ## Install
