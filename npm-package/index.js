@@ -17,6 +17,13 @@ function getSystemById(id) {
   return systems.find(s => s.id === id);
 }
 
+/**
+ * Convert a grade to a percentage based on the Grade-system's mapping.
+ * @param { number } systemId 
+ * @param { number } grade 
+ * @returns { number } The grade converted to a grade percentage.
+ * @throws { Error } If the Grade-system is not found.
+ */
 function convertToPercent(systemId, grade) {
   const system = getSystemById(systemId);
   if (!system) throw new Error('System not found');
@@ -27,6 +34,12 @@ function convertToPercent(systemId, grade) {
   return ((grade - firstGrade) / (lastGrade - firstGrade)) * 100;
 }
 
+/**
+ * Get the color representation of a grade within a specific Grade-system.
+ * @param { number } systemId 
+ * @param { number } grade 
+ * @returns { string } The color representing the grade status.
+ */
 function getColor(systemId, grade) {
   const system = getSystemById(systemId);
   const percent = convertToPercent(systemId, grade);
@@ -36,6 +49,12 @@ function getColor(systemId, grade) {
   return 'green';
 }
 
+/**
+ * Get the description of a grade within a specific Grade-system.
+ * @param { number } systemId 
+ * @param { number } grade 
+ * @returns { string|null } The description of the grade or null if not found.
+ */
 function getGradeDescription(systemId, grade) {
   const system = getSystemById(systemId);
   let closest = system.mappings[0];
