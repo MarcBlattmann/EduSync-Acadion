@@ -1,9 +1,18 @@
 const systems = require('./data/systems.json');
 
+/**
+ * Retrieve all registered Grade-systems.
+ * @returns {Array<Object>} An array of all Grade-system objects.
+ */
 function getAllSystems() {
   return systems;
 }
 
+/**
+ * Retrieve a Grade-system by its unique identifier.
+ * @param { number } id 
+ * @returns { Object|null } The Grade-system object or null if not found.
+ */
 function getSystemById(id) {
   return systems.find(s => s.id === id);
 }
@@ -38,4 +47,11 @@ function getGradeDescription(systemId, grade) {
   return closest.description;
 }
 
-module.exports = { systems, getSystemById, convertToPercent, getColor, getGradeDescription, getAllSystems };
+module.exports = { 
+  systems, 
+  getSystemById, 
+  convertToPercent, 
+  getColor, 
+  getGradeDescription, 
+  getAllSystems 
+};
