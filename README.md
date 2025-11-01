@@ -1,6 +1,6 @@
 # EduSync - Acadion
 
-> Grade system data and small utilities to convert and describe academic grades from various national systems.
+> Grade system utilities to convert and describe academic grades from various national systems.
 
 [![NPM](https://nodei.co/npm/edusync-acadion.png)](https://npmjs.org/package/edusync-acadion)
 
