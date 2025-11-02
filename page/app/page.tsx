@@ -16,9 +16,11 @@ export default function Home() {
           />
           <h1>EduSync Acadion</h1>
         </div>
-        <Button variant="ghost" className="cursor-pointer h-10 w-10" size="icon">
-          <Github />
-        </Button>
+        <a href="https://github.com/MarcBlattmann/EduSync-Acadion" target="_blank">
+          <Button variant="ghost" className="cursor-pointer h-10 w-10" size="icon">
+            <Github />
+          </Button>
+        </a>
       </div>
       <div className="h-full w-full">
         <Image
