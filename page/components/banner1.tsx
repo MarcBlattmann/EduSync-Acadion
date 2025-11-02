@@ -29,8 +29,8 @@ const Banner1 = ({
   if (!isVisible) return null;
 
   return (
-    <section className="bg-background w-full border-b px-4 py-3">
-      <div className="flex items-center justify-between gap-2">
+    <section className="bg-background w-full border-b px-4 py-3 flex justify-center">
+      <div className="flex items-center justify-between gap-2 max-w-345 w-full">
         <div className="flex-1 text-center">
           <span className="text-sm">
             <span className="font-medium">{title}</span>{" "}
