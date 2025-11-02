@@ -70,10 +70,52 @@ function getGradeDescription(systemId, grade) {
   return closest.description;
 }
 
+/**
+ * Convert a percentage (0-100) into a grade for a specific system using linear
+ * interpolation across the system's grade range.
+ *
+ * @param {number} systemId
+ * @param {number} percent - value between 0 and 100
+ * @throws {Error} If the Grade-system is not found
+ * @returns {number} interpolated grade in the target system
+ */
+function percentToGrade(systemId, percent) {
+  const system = getSystemById(systemId);
+  if (!system) throw new Error('System not found');
+
+  const firstGrade = system.mappings[0].grade;
+  const lastGrade = system.mappings[system.mappings.length - 1].grade;
+
+  return firstGrade + (percent / 100) * (lastGrade - firstGrade);
+}
+
+/**
+ * Convert a grade from one Grade-system to another.
+ * @param {number} fromSystemId - ID of the source grade system
+ * @param {number} toSystemId - ID of the target grade system
+ * @param {number} grade - Grade in the source system to convert
+ * @throws {Error} If either Grade-system is not found
+ * @returns {{ grade: number }} The converted grade in the target system
+ */
+function convertGradeToGrade(fromSystemId, toSystemId, grade) {
+  const fromSystem = getSystemById(fromSystemId);
+  const toSystem = getSystemById(toSystemId);
+
+  if (!fromSystem) throw new Error('Source system not found');
+  if (!toSystem) throw new Error('Target system not found');
+
+  const percent = convertToPercent(fromSystemId, grade);
+  const converted = percentToGrade(toSystemId, percent);
+
+  return { grade: converted };
+}
+
 module.exports = { 
   systems, 
   getSystemById, 
   convertToPercent, 
+  percentToGrade,
+  convertGradeToGrade,
   getColor, 
   getGradeDescription, 
   getAllSystems 
