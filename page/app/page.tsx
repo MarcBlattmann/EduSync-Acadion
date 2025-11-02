@@ -9,7 +9,6 @@ export default function Home() {
     <div className="w-full">
       <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
         <div className="flex gap-3 text-2xl font-bold w-full items-center">
-          {/* light and dark logo variants - shown/hidden via Tailwind dark: classes */}
           <Image
             src="/black-logo.svg"
             alt="EduSync Logo dark"
@@ -35,21 +34,8 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <div className="h-full w-full">
-        <Image
-          src="/black-logo.svg"
-          alt="EduSync Logo dark"
-          width={150}
-          height={100}
-          className="block dark:hidden"
-        />
-        <Image
-          src="/white-logo.svg"
-          alt="EduSync Logo light"
-          width={150}
-          height={100}
-          className="hidden dark:block"
-        />
+      <div className="h-full px-5 w-full">
+        <h1 className="text-4xl font-bold">Make working with grades easy</h1>
       </div>
     </div>
   );
