@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         <Banner1 title={"Version 2.0 is now available!"} description={"Read the full release notes"} linkText={"here"} linkUrl={""} />
         <div className="w-screen flex justify-center">
-          <div className="w-2/3">
+          <div className="w-360">
             {children}
           </div>
         </div>
