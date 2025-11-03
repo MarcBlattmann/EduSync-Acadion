@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
         <div className="flex gap-3 text-2xl font-bold w-full items-center">
           <Image
@@ -34,8 +34,9 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <div className="h-full px-5 w-full">
+      <div className="flex flex-col gap-1 justify-center h-1/6 px-5 w-full">
         <h1 className="text-4xl font-bold">Make working with grades easy</h1>
+        <h2 className="text-lg">Universal grade conversion and analysis toolkit for international education systems.</h2>
       </div>
     </div>
   );
