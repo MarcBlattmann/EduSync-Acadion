@@ -21,7 +21,7 @@ npm install edusync-acadion
 Contributions are welcome. Recommended workflow:
 
 1. Fork the repository
-2. Add or update systems in `package/data/systems.json` (one system per object)
+2. Add or update systems in `core/data/systems.json` (one system per object)
 3. Update `last_modified` and include a short note in a PR description explaining the source
 4. Run any local checks and open a PR
 
