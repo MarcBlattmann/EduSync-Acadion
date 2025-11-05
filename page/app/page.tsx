@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import Link from "next/link"
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 
 export default function Home() {
   return (
@@ -24,6 +26,24 @@ export default function Home() {
             className="hidden dark:block"
           />
           <h1>EduSync Acadion</h1>
+          <NavigationMenu className="ml-3">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className="cursor-pointer">
+                  <Link href="/convert">
+                    Convert
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className="cursor-pointer">
+                  <Link href="/convert">
+                    Docs
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />

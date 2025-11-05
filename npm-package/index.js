@@ -1,4 +1,5 @@
-const systems = require('./data/systems.json');
+const data = require('./data/systems.json');
+const systems = data.systems;
 
 /**
  * Retrieve all registered Grade-systems.

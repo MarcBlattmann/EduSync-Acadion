@@ -1,12 +1,12 @@
 {
   "name": "edusync-acadion",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "Grade system data and utilities for academic grading worldwide.",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "prepublishOnly": "cp ../README.md .; cp -r ../core/data .",
-    "postpublish": "rm -f README.md; rm -rf data"
+    "prepublishOnly": "node -e \"require('fs').copyFileSync('../README.md', './README.md'); require('fs-extra').copySync('../core/data', './data')\"",
+    "postpublish": "node -e \"require('fs-extra').removeSync('./README.md'); require('fs-extra').removeSync('./data')\""
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/MarcBlattmann/EduSync-Acadion/issues"
   },
-  "homepage": "https://github.com/MarcBlattmann/EduSync-Acadion#readme"
+  "homepage": "https://github.com/MarcBlattmann/EduSync-Acadion#readme",
+  "devDependencies": {
+    "fs-extra": "^11.3.2"
+  }
 }
