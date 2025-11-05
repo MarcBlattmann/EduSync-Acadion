@@ -13,11 +13,20 @@ export default function ConvertPage() {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>
-                        {Systems.map((system) => (
-                            <SelectItem key={system.id} value={system.id.toString()}>
-                                {system.name} ({system.used_in?.join(', ')})
-                            </SelectItem>
-                        ))}
+                        {Systems.flatMap((system) =>
+                            system.used_in?.map((country) => (
+                                <SelectItem key={`${system.id}-${country}`} value={system.id.toString()}>
+                                    <img
+                                        alt={system.name}
+                                        src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${country}.svg`}
+                                        height="20px"
+                                        width="20px"
+                                        className="rounded-[2px]"
+                                    />
+                                    {system.name}
+                                </SelectItem>
+                            )) || []
+                        )}
                     </SelectGroup>
                 </SelectContent>
                 </Select>
