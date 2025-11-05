@@ -6,7 +6,7 @@ export default function ConvertPage() {
     const Systems = getAllSystems();
 
     return (
-        <div className="p-10">
+        <div className="pt-10">
             <Select>
                 <SelectTrigger className="w-[300px]">
                     <SelectValue placeholder="Select a fruit" />
