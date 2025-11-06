@@ -14,7 +14,7 @@ export default function ConvertPage() {
                 <h1 className="text-3xl font-bold">Systems</h1>
                 <Select>
                     <SelectTrigger className="w-[300px]">
-                        <SelectValue placeholder="Select a fruit" />
+                        <SelectValue placeholder="Select a System" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
