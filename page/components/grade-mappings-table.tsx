@@ -1,6 +1,6 @@
 'use client';
 
-import { GradeSystem } from 'edusync-acadion';
+import { GradeSystem, getColor } from 'edusync-acadion';
 import {
   Table,
   TableBody,
@@ -34,9 +34,16 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
           </TableRow>
         </TableHeader>
         <TableBody>
-          {system.mappings.map((mapping, index) => (
+          {system.mappings.map((mapping, index) => {
+            const colorMap: { [key: string]: string } = {
+              red: '#ef4444',
+              orange: '#f97316',
+              green: '#22c55e',
+            };
+            const color = getColor(system.id, mapping.grade);
+            return (
             <TableRow key={index}>
-              <TableCell className="font-medium">{mapping.grade}</TableCell>
+              <TableCell className="font-medium" style={{ color: colorMap[color] }}>{mapping.grade}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold min-w-fit">
@@ -48,7 +55,8 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
                 {mapping.description || '-'}
               </TableCell>
             </TableRow>
-          ))}
+            );
+          })}
         </TableBody>
       </Table>
     </div>
