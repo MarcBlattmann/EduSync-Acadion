@@ -28,8 +28,8 @@ export default function Navbar() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className="cursor-pointer">
-                  <Link href="/convert">
-                    Convert
+                  <Link href="/systems">
+                    Systems
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
