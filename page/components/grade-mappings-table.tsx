@@ -24,8 +24,8 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
   }
 
   return (
-    <div className="rounded-md border w-fit">
-      <Table>
+    <div className="w-fit">
+      <Table className='bg-[#171717] rounded-md'>
         <TableHeader>
           <TableRow>
             <TableHead>Grade</TableHead>
