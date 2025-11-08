@@ -24,7 +24,7 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
   }
 
   return (
-    <div className="w-fit rounded-md overflow-hidden dark:border-0 border">
+    <div className="w-fit rounded-md overflow-hidden dark:border-0 border [&_table]:rounded-md [&_tr:last-child_td:first-child]:rounded-bl-md [&_tr:last-child_td:last-child]:rounded-br-md [&_tr:first-child_th:first-child]:rounded-tl-md [&_tr:first-child_th:last-child]:rounded-tr-md">
       <Table className='dark:bg-[#171717] bg-[#fafafa]'>
         <TableHeader>
           <TableRow>
@@ -42,8 +42,8 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
             };
             const color = getColor(system.id, mapping.grade);
             return (
-            <TableRow key={index} >
-              <TableCell className="font-medium" style={{ color: colorMap[color] }}>{mapping.grade}</TableCell>
+            <TableRow key={index}>
+              <TableCell className="font-medium hover:rounded-lg" style={{ color: colorMap[color] }}>{mapping.grade}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold min-w-fit">

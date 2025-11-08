@@ -120,3 +120,132 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .prose {
+    max-width: none;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    font-weight: bold;
+    color: var(--color-foreground);
+  }
+
+  .prose h1 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h2 {
+    font-size: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    margin-bottom: 0.75rem;
+    color: var(--color-foreground);
+    line-height: 1.625;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin-left: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.25rem;
+    color: var(--color-foreground);
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .prose em {
+    font-style: italic;
+    color: var(--color-foreground);
+  }
+
+  .prose a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    opacity: 0.8;
+  }
+
+  .prose code {
+    background-color: var(--color-muted);
+    padding: 0.375rem 0.375rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: var(--color-foreground);
+  }
+
+  .prose pre {
+    background-color: var(--color-muted);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+    overflow-x: auto;
+  }
+
+  .prose pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .prose blockquote {
+    border-left: 4px solid var(--color-primary);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--color-muted-foreground);
+    margin-bottom: 0.75rem;
+  }
+
+  .prose hr {
+    margin: 1.5rem 0;
+    border-color: var(--color-border);
+  }
+
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose th,
+  .prose td {
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+
+  .prose th {
+    background-color: var(--color-muted);
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  /* Table row hover styles */
+  [role="row"]:hover {
+    border-radius: 0.5rem;
+  }
+}

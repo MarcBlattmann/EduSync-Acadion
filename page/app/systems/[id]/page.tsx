@@ -32,9 +32,9 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                     </div>
 
                     {selectedSystem && (
-                        <div className="space-y-4 flex">
+                        <div className="space-y-4 flex gap-5">
                             <GradeMappingsTable system={selectedSystem} />
-                            <div className="w-1/2 px-5 prose prose-sm dark:prose-invert max-w-none">
+                            <div className="flex-1 prose">
                                 <ReactMarkdown>{selectedSystem.info}</ReactMarkdown>
                             </div>
                         </div>
