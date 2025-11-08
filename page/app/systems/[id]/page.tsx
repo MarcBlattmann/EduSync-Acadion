@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/navbar";
 import GradeMappingsTable from "@/components/grade-mappings-table";
-import { getAllSystems, getSystemByName } from 'edusync-acadion';
+import { getAllSystems, getSystemByName, percentToGrade } from 'edusync-acadion';
 import { useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
@@ -24,7 +24,7 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
             <Navbar />
             {selectedSystem ? (
                 <div className="pt-10 px-5">
-                                        <div className="flex justify-between gap-3 mb-8">
+                    <div className="flex justify-between gap-3 mb-8">
                         <h1 className="text-3xl font-bold">{selectedSystem?.name}</h1>
                         <a href={`https://github.com/MarcBlattmann/EduSync-Acadion/issues/new?title=Feedback%20for%20${encodeURIComponent(selectedSystem?.name || '')}&body=**Grade%20System:**%20${encodeURIComponent(selectedSystem?.name || '')}%0A**ID:**%20${selectedSystem?.id}%0A%0A**Type%20of%20feedback:**%0A-%20%5B%20%5D%20Error%20in%20grade%20mappings%0A-%20%5B%20%5D%20Incorrect%20title%20or%20description%0A-%20%5B%20%5D%20Missing%20information%0A-%20%5Bx%5D%20Other%0A%0A**Details:**%0A%0A**Suggested%20change:**%0A`} target="_blank">
                             <Button className="cursor-pointer">Suggest a change</Button>
@@ -36,6 +36,9 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                             <GradeMappingsTable system={selectedSystem} />
                             <div className="flex-1 prose">
                                 <ReactMarkdown>{selectedSystem.info}</ReactMarkdown>
+                            </div>
+                            <div className="dark:bg-[#171717] bg-[#fafafa] h-fit py-2 px-3 rounded-lg w-1/6">
+                                <div className="font-medium">ID : {selectedSystem.id}</div>
                             </div>
                         </div>
                     )}
