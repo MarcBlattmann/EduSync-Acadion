@@ -9,21 +9,23 @@ export default function Navbar() {
     return (
         <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
         <div className="flex gap-3 text-2xl font-bold w-full items-center">
-          <Image
-            src="/black-logo.svg"
-            alt="EduSync Logo dark"
-            width={30}
-            height={20}
-            className="block dark:hidden"
-          />
-          <Image
-            src="/white-logo.svg"
-            alt="EduSync Logo light"
-            width={30}
-            height={20}
-            className="hidden dark:block"
-          />
-          <h1>EduSync Acadion</h1>
+          <a href="/" className="flex gap-3">
+              <Image
+              src="/black-logo.svg"
+              alt="EduSync Logo dark"
+              width={30}
+              height={20}
+              className="block dark:hidden"
+            />
+            <Image
+              src="/white-logo.svg"
+              alt="EduSync Logo light"
+              width={30}
+              height={20}
+              className="hidden dark:block"
+            />
+            <h1>EduSync Acadion</h1>
+          </a>
           <NavigationMenu className="ml-3">
             <NavigationMenuList>
               <NavigationMenuItem>
