@@ -85,7 +85,7 @@ export default function SystemsSearch() {
                     className="cursor-pointer"
                   >
                     <div className="flex gap-4 items-center flex-1 w-full">
-                      <div className="w-8 h-6 flex flex-wrap gap-0 overflow-hidden">
+                      <div className="w-8 h-6 flex flex-wrap gap-0 overflow-hidden rounded-[3px]">
                         {system.used_in?.map((country, index) => {
                           const count = system.used_in?.length || 1
                           const cols = Math.ceil(Math.sqrt(count))

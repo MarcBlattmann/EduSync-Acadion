@@ -16,7 +16,7 @@ export default function SystemsPage() {
             <div className="pt-10 px-5 flex">
                 <div className="flex flex-col gap-3 mb-8">
                     <h1 className="text-3xl font-bold">Search the Grading systems available</h1>
-                    <p className="w-3/4">Discover, explore, and integrate grading systems from around the world directly in your projects, with easy access to their structures, scales, and conversions.</p>
+                    <p className="w-3/4 text-lg">Explore grading systems from countries worldwide, discover their structures, scales, and how they compare to one another.</p>
                     <div className="mt-6">
                         <SystemsSearch />
                     </div>
