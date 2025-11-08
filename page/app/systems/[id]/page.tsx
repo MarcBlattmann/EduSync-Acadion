@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Button } from "@/components/ui/button";
 import { Minus } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
 
 
 export default function ConvertPage({ params }: { params: Promise<{ id: string }> }) {
@@ -33,8 +34,8 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                     {selectedSystem && (
                         <div className="space-y-4 flex">
                             <GradeMappingsTable system={selectedSystem} />
-                            <div className="w-1/2 px-5">
-                                {selectedSystem.info}
+                            <div className="w-1/2 px-5 prose prose-sm dark:prose-invert max-w-none">
+                                <ReactMarkdown>{selectedSystem.info}</ReactMarkdown>
                             </div>
                         </div>
                     )}
