@@ -7,7 +7,7 @@
             "used_in": ["CH", "LI"],
             "passing_percent": 60,
             "satisfactory_percent": 75,
-            "info": "Getting an average grade between **5.5** and **6.0** is very difficult, and an average of **6.0** is almost impossible. ### Exams In exams, grades can go up or down by tenths or even hundredths (like 5.37 or 5.8), because the grade is calculated directly from the number of points you score.",
+            "info": "Getting an average grade between **5.5** and **6.0** is very difficult.\n\n### Exams\nIn exams, grades can go up or down by tenths or even hundredths (like 5.37 or 5.8), because the grade is calculated directly from the number of points you score.",
             "mappings": [
                 { "grade": 1,   "percent": 0,    "description": "Very poor" },
                 { "grade": 2,   "percent": 25,   "description": "Poor" },

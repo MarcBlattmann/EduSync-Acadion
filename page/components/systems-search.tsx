@@ -95,13 +95,14 @@ export default function SystemsSearch() {
                     className="cursor-pointer"
                   >
                     <div className="flex gap-4 items-center flex-1 w-full">
-                      <div className="w-8 h-6 flex flex-wrap gap-0 overflow-hidden rounded-[3px]">
+                      <div className="w-8 h-6 flex flex-wrap gap-1 overflow-hidden rounded-[3px]">
                         {system.used_in?.map((country, index) => {
                           const count = system.used_in?.length || 1
                           const cols = Math.ceil(Math.sqrt(count))
                           const rows = Math.ceil(count / cols)
-                          const flagWidth = 32 / cols
-                          const flagHeight = 24 / rows
+                          const gapSize = 4
+                          const flagWidth = (32 - (cols - 1) * gapSize) / cols
+                          const flagHeight = (24 - (rows - 1) * gapSize) / rows
                           const isLastRow = index >= count - (count % cols || cols)
                           const remainingInLastRow = count % cols || cols
                           const shouldStretch = isLastRow && remainingInLastRow === 1 && count > 1
