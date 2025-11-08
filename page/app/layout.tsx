@@ -28,9 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Banner1 title={"Version 2.0 is now available!"} description={"Read the full release notes"} linkText={"here"} linkUrl={""} />
-        <div className="w-full flex justify-center">
-          <div className="w-360 min-h-screen">
+        <div className="w-full h-screen flex flex-col items-center">
+          <Banner1 title={"Version 2.0 is now available!"} description={"Read the full release notes"} linkText={"here"} linkUrl={""} />
+          <div className="flex-1 w-full max-w-360">
             {children}
           </div>
         </div>
