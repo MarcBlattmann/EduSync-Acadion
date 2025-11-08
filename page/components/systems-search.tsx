@@ -115,7 +115,7 @@ export default function SystemsSearch() {
                       <div className="flex flex-col flex-1 min-w-0">
                         <div className="font-medium truncate">{system.name}</div>
                         <div className="text-xs text-muted-foreground">
-                          Modified: {system.last_modified}
+                          Used in: {system.used_in?.join(", ")}
                         </div>
                       </div>
                     </div>
