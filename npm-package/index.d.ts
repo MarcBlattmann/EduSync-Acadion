@@ -21,6 +21,7 @@ declare module 'edusync-acadion' {
   export const systems: GradeSystem[];
   export function getAllSystems(): GradeSystem[];
   export function getSystemById(id: number): GradeSystem | undefined;
+  export function getSystemByName(name: string): GradeSystem | undefined;
   export function convertToPercent(systemId: number, grade: number | string): number;
   export function percentToGrade(systemId: number, percent: number): number | string;
   export function convertGradeToGrade(fromSystemId: number, toSystemId: number, grade: number | string): { grade: number | string };

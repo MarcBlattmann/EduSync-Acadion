@@ -19,6 +19,15 @@ function getSystemById(id) {
 }
 
 /**
+ * Retrieve a Grade-system by its name.
+ * @param { string } name 
+ * @returns { Object|null } The Grade-system object or null if not found.
+ */
+function getSystemByName(name) {
+  return systems.find(s => s.name === name);
+}
+
+/**
  * Helper: convert a numeric grade to percent using numeric mapping entries (linear between neighbours)
  * @param {Array<Object>} mappings 
  * @param {number} gradeNum 
@@ -209,6 +218,7 @@ function convertGradeToGrade(fromSystemId, toSystemId, grade) {
 module.exports = { 
   systems, 
   getSystemById, 
+  getSystemByName,
   convertToPercent, 
   percentToGrade,
   convertGradeToGrade,
