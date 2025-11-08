@@ -20,13 +20,23 @@ export default function SystemsSearch() {
   const systems = getAllSystems()
   const searchRef = useRef<HTMLDivElement>(null)
 
+  const getCountryName = (countryCode: string) => {
+    try {
+      const displayNames = new Intl.DisplayNames(['en'], { type: 'region' })
+      return displayNames.of(countryCode) || countryCode
+    } catch {
+      return countryCode
+    }
+  }
+
   const filteredSystems = useMemo(() => {
     if (!searchQuery) return systems
 
     return systems.filter((system) =>
       system.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (system.used_in?.some((country) =>
-        country.toLowerCase().includes(searchQuery.toLowerCase())
+        country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getCountryName(country).toLowerCase().includes(searchQuery.toLowerCase())
       ) ?? false)
     )
   }, [searchQuery, systems])
@@ -115,7 +125,7 @@ export default function SystemsSearch() {
                       <div className="flex flex-col flex-1 min-w-0">
                         <div className="font-medium truncate">{system.name}</div>
                         <div className="text-xs text-muted-foreground">
-                          Used in: {system.used_in?.join(", ")}
+                          Used in: {system.used_in?.map((country) => getCountryName(country)).join(", ")}
                         </div>
                       </div>
                     </div>
