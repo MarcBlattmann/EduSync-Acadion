@@ -2,6 +2,17 @@ const data = require('./data/systems.json');
 const systems = data.systems;
 
 /**
+ * Get information about a specific Grade-system in Markdown format.
+ * @param { number } id - The unique identifier of the Grade-system
+ * @returns { string|null } Markdown formatted information about the Grade-system or null if not found.
+ */
+function getSystemInfo(id) {
+  const system = getSystemById(id);
+  if (!system) return null;
+  return system.info || null;
+}
+
+/**
  * Retrieve all registered Grade-systems.
  * @returns {Array<Object>} An array of all Grade-system objects.
  */
@@ -223,6 +234,7 @@ module.exports = {
   percentToGrade,
   convertGradeToGrade,
   getColor, 
-  getGradeDescription, 
+  getGradeDescription,
+  getSystemInfo,
   getAllSystems 
 };

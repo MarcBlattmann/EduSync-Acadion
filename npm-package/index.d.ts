@@ -11,10 +11,9 @@ declare module 'edusync-acadion' {
     name: string;
     last_modified?: string;
     used_in?: string[];
-    education_level?: string;
     passing_percent?: number;
     satisfactory_percent?: number;
-    max_grade?: number;
+    info?: string;
     mappings: Mapping[];
     [key: string]: any;
   }
@@ -27,4 +26,5 @@ declare module 'edusync-acadion' {
   export function convertGradeToGrade(fromSystemId: number, toSystemId: number, grade: number | string): { grade: number | string };
   export function getColor(systemId: number, grade: number | string): 'red' | 'orange' | 'green';
   export function getGradeDescription(systemId: number, grade: number | string): string | null;
+  export function getSystemInfo(id: number): string | null;
 }
