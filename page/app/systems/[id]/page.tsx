@@ -10,14 +10,22 @@ import { Button } from "@/components/ui/button";
 import { Minus } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 import Image from "next/image";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function ConvertPage({ params }: { params: Promise<{ id: string }> }) {
-    const router = useRouter();
     const resolvedParams = use(params);
-    const Systems = getAllSystems();
-    const [selectedSystemName, setSelectedSystemName] = useState<string | null>(resolvedParams.id || null);
+    const [selectedSystemName] = useState<string | null>(resolvedParams.id || null);
     
     const selectedSystem = selectedSystemName ? getSystemByName(selectedSystemName) : null;
+
+    const getCountryName = (countryCode: string) => {
+        try {
+            const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
+            return displayNames.of(countryCode);
+        } catch {
+            return countryCode;
+        }
+    };
 
     return (
         <div className="h-full flex flex-col">
@@ -46,14 +54,20 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                                         <div className="font-medium">Used in :</div>
                                         <div className="flex gap-2 flex-wrap">
                                             {selectedSystem.used_in.map((countryCode, index) => (
-                                                <Image
-                                                    key={index}
-                                                    alt={countryCode}
-                                                    src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${countryCode}.svg`}
-                                                    width={50}
-                                                    height={20}
-                                                    className="rounded-sm"
-                                                />
+                                                <Tooltip key={index}>
+                                                    <TooltipTrigger>
+                                                        <Image
+                                                            alt={countryCode}
+                                                            src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${countryCode}.svg`}
+                                                            width={50}
+                                                            height={20}
+                                                            className="rounded-sm"
+                                                        />
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        <p>{getCountryName(countryCode)}</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
                                             ))}
                                         </div>
                                     </div>
