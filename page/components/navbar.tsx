@@ -10,7 +10,7 @@ export default function Navbar() {
         <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
         <div className="flex gap-3 text-2xl font-bold w-full items-center">
           <a href="/" className="flex gap-3">
-              <Image
+            <Image
               src="/black-logo.svg"
               alt="EduSync Logo dark"
               width={30}
