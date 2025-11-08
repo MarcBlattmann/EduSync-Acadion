@@ -1,15 +1,21 @@
 'use client';
 
 import Navbar from "@/components/navbar";
+import GradeMappingsTable from "@/components/grade-mappings-table";
 import Image from 'next/image';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getAllSystems } from 'edusync-acadion';
+import { getAllSystems, getSystemByName } from 'edusync-acadion';
+import { useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 
 
-export default function SystemsPage() {
+export default function ConvertPage({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter();
+    const resolvedParams = use(params);
     const Systems = getAllSystems();
+    const [selectedSystemName, setSelectedSystemName] = useState<string | null>(resolvedParams.id || null);
+    
+    const selectedSystem = selectedSystemName ? getSystemByName(selectedSystemName) : null;
 
     return (
         <>
@@ -17,7 +23,8 @@ export default function SystemsPage() {
             <div className="pt-10 px-5">
                 <div className="flex justify-between gap-3 mb-8">
                     <h1 className="text-3xl font-bold">Systems</h1>
-                    <Select onValueChange={(value) => {
+                    <Select value={selectedSystemName || ""} onValueChange={(value) => {
+                        setSelectedSystemName(value);
                         router.push(`/systems/${value}`);
                     }}>
                         <SelectTrigger className="w-[300px]">
@@ -45,6 +52,12 @@ export default function SystemsPage() {
                         </SelectContent>
                     </Select>
                 </div>
+
+                {selectedSystem && (
+                    <div className="space-y-4">
+                        <GradeMappingsTable system={selectedSystem} />
+                    </div>
+                )}
             </div>
         </>
     );
