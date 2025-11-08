@@ -42,7 +42,7 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
             };
             const color = getColor(system.id, mapping.grade);
             return (
-            <TableRow key={index}>
+            <TableRow key={index} >
               <TableCell className="font-medium" style={{ color: colorMap[color] }}>{mapping.grade}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
