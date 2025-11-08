@@ -31,8 +31,11 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                     </div>
 
                     {selectedSystem && (
-                        <div className="space-y-4">
+                        <div className="space-y-4 flex">
                             <GradeMappingsTable system={selectedSystem} />
+                            <div className="w-1/2 px-5">
+                                {selectedSystem.info}
+                            </div>
                         </div>
                     )}
                 </div>
