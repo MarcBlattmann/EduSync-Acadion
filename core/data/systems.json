@@ -2,12 +2,12 @@
     "systems": [
         {
             "id": 1,
-            "name": "6-Point",
+            "name": "Hexa-(1-6)",
             "last_modified": "2025-11-01",
-            "used_in": ["CH"],
+            "used_in": ["CH", "LI"],
             "passing_percent": 60,
             "satisfactory_percent": 75,
-            "info": "The 6-point grading scale is a widely used system in educational institutions that provides a balanced assessment across six distinct performance levels. The scale ranges from 1 (lowest) to 6 (highest), with grades typically rounded to integers or half-integers.\n\n## Key Characteristics\n\n- **Grade Rounding**: Individual grades are usually rounded to integers or half-integers (e.g., 5.5)\n- **Overall Calculation**: A weighted mean is used to calculate the overall result, where the weight is proportional to the number of hours the subject was taught or its credit value\n- **Passing Requirement**: An overall result of at least 4.0 is typically required to pass\n- **Additional Conditions**: Sometimes a maximum number of grades below 4 is enforced\n- **Flexibility**: At advanced educational levels, individual subjects or courses can often be repeated if an insufficient grade is received, rather than repeating the entire period\n\n## Typical Performance\n\n- The average exam result is typically somewhat above 4, with a variance between 0.5 and 1\n- Performance varies depending on exam type, tested class, educational level, and other factors\n- Quarter steps (0.25 increments) are commonly used in exams to indicate grades between integers (e.g., 5.25)\n- Some assessments use finer-grained systems with steps of one-tenth (0.1), especially when grades are calculated as a linear function of achieved points\n\n## Grade Mappings\n\n| Grade | Percent | Description |\n|-------|---------|-------------|\n| 1 | 0% | Very poor |\n| 2 | 25% | Poor |\n| 3 | 45% | Insufficient |\n| 4 | 60% | Sufficient |\n| 4.5 | 70% | Satisfying |\n| 5 | 80% | Good |\n| 5.5 | 90% | Good to very good |\n| 6 | 100% | Very good |",
+            "info": "Getting an average grade between **5.5** and **6.0** is very difficult, and an average of **6.0** is almost impossible. ### Exams In exams, grades can go up or down by tenths or even hundredths (like 5.37 or 5.8), because the grade is calculated directly from the number of points you score.",
             "mappings": [
                 { "grade": 1,   "percent": 0,    "description": "Very poor" },
                 { "grade": 2,   "percent": 25,   "description": "Poor" },
@@ -26,31 +26,13 @@
             "used_in": ["PT"],
             "passing_percent": 50,
             "satisfactory_percent": 70,
-            "info": "The 5-point grading scale is a simplified assessment system that provides clear performance categories with a straightforward progression from poor to excellent.\n\n## Key Characteristics\n\n- **Scale**: Ranges from 1 (lowest/poorest) to 5 (highest/excellent)\n- **Passing Requirement**: A grade of 3 or higher is generally considered satisfactory\n- **Assessment Focus**: Emphasizes fundamental competencies and knowledge acquisition\n- **Clarity**: The limited number of grades makes it easy to understand and communicate performance levels\n\n## Grade Interpretation\n\n- **Grade 1**: Poor performance, significant gaps in understanding\n- **Grade 2**: Unsatisfactory performance, below expected level\n- **Grade 3**: Satisfactory performance, meets basic requirements\n- **Grade 4**: Good performance, above average achievement\n- **Grade 5**: Excellent performance, exceeds expectations\n\n## Grade Mappings\n\n| Grade | Percent | Description |\n|-------|---------|-------------|\n| 1 | 0% | Poor |\n| 2 | 25% | Unsatisfactory |\n| 3 | 50% | Satisfactory |\n| 4 | 80% | Good |\n| 5 | 100% | Very good |",
+            "info": "The 5-point grading scale is a simplified assessment system that provides clear performance categories with a straightforward progression from poor to excellent.",
             "mappings": [
                 { "grade": 1, "percent": 0,    "description": "Poor" },
                 { "grade": 2, "percent": 25,   "description": "Unsatisfactory" },
                 { "grade": 3, "percent": 50,   "description": "Satisfactory" },
                 { "grade": 4, "percent": 80,   "description": "Good" },
                 { "grade": 5, "percent": 100,  "description": "Very good" }
-            ]
-        },
-        {
-            "id": 3,
-            "name": "20-Point",
-            "last_modified": "2025-11-01",
-            "used_in": ["PT"],
-            "passing_percent": 50,
-            "satisfactory_percent": 70,
-            "info": "The 20-point grading scale is a comprehensive assessment system that allows for nuanced evaluation of student performance. The scale ranges from 0 to 20 points, offering fine-grained differentiation between performance levels.\n\n## Key Characteristics\n\n- **Scale**: Ranges from 0 to 20 points, offering detailed assessment capabilities\n- **Passing Requirement**: A score of 10 points is typically the minimum passing grade\n- **Precision**: The scale allows for assessment in single-point increments (and sometimes smaller increments), enabling precise differentiation between performance levels\n- **Flexibility**: Suitable for detailed evaluations where cumulative scoring or weighted assessments are needed\n\n## Grade Interpretation\n\n- **0-3.5**: Poor performance\n- **3.5-9.5**: Weak to insufficient performance\n- **9.5-13.5**: Sufficient to good performance\n- **13.5-17.5**: Good to very good performance\n- **17.5-20**: Excellent to outstanding performance\n\n## Grade Mappings\n\n| Grade | Percent | Description |\n|-------|---------|-------------|\n| 0 | 0% | Poor |\n| 3.5 | 17.5% | Weak |\n| 9.5 | 47.5% | Sufficient |\n| 13.5 | 67.5% | Good |\n| 15.5 | 77.5% | Very good |\n| 17.5 | 87.5% | Excellent |\n| 20 | 100% | Excellent |",
-            "mappings": [
-                { "grade": 0,   "percent": 0,    "description": "Poor" },
-                { "grade": 3.5, "percent": 17.5, "description": "Weak" },
-                { "grade": 9.5, "percent": 47.5, "description": "Sufficient" },
-                { "grade": 13.5,"percent": 67.5, "description": "Good" },
-                { "grade": 15.5,"percent": 77.5, "description": "Very good" },
-                { "grade": 17.5,"percent": 87.5, "description": "Excellent" },
-                { "grade": 20,  "percent": 100,  "description": "Excellent" }
             ]
         }
     ]
