@@ -2,7 +2,7 @@
     "systems": [
         {
             "id": 1,
-            "name": "6-Point Scale",
+            "name": "6-Point",
             "last_modified": "2025-11-01",
             "used_in": ["CH"],
             "passing_percent": 55,
@@ -21,7 +21,7 @@
         },
         {
             "id": 2,
-            "name": "5-Point Scale",
+            "name": "5-Point",
             "last_modified": "2025-11-01",
             "used_in": ["PT"],
             "passing_percent": 50,
@@ -37,7 +37,7 @@
         },
         {
             "id": 3,
-            "name": "20-Point Scale",
+            "name": "20-Point",
             "last_modified": "2025-11-01",
             "used_in": ["PT"],
             "passing_percent": 50,
