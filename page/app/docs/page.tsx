@@ -10,6 +10,7 @@ export default function DocsPage() {
     const [files, setFiles] = useState<string[]>([]);
     const [selectedFile, setSelectedFile] = useState<string>('Welcome.md');
     const [content, setContent] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [fileIcons, setFileIcons] = useState<Record<string, string>>({});
     const [fileOrder, setFileOrder] = useState<Record<string, number>>({});
@@ -43,13 +44,17 @@ export default function DocsPage() {
                         const icon = iconMatch ? iconMatch[1] : '';
                         const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
                         const order = orderMatch ? parseFloat(orderMatch[1]) : Infinity;
+                        const titleMatch = frontmatter.match(/title:\s*(.+)/);
+                        const docTitle = titleMatch ? titleMatch[1].trim() : selectedFile.replace('.md', '');
                         
                         setFileIcons(prev => ({ ...prev, [selectedFile]: icon }));
                         setFileOrder(prev => ({ ...prev, [selectedFile]: order }));
+                        setTitle(docTitle);
                         setContent(content);
                     } else {
                         setFileIcons(prev => ({ ...prev, [selectedFile]: '' }));
                         setFileOrder(prev => ({ ...prev, [selectedFile]: Infinity }));
+                        setTitle(selectedFile.replace('.md', ''));
                         setContent(text);
                     }
                     setLoading(false);
@@ -70,36 +75,40 @@ export default function DocsPage() {
     return (
         <>
             <Navbar />
-            <div className="flex px-4 mt-5">
-                <div className="w-1/4 flex flex-col">
-                    {files
-                        .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
-                        .sort((a, b) => a.order - b.order)
-                        .map(({ file }) => (
-                        <button
-                            key={file}
-                            onClick={() => setSelectedFile(file)}
-                            className={`w-fit py-2 cursor-pointer items-center flex gap-2 ${
-                                selectedFile === file 
-                                    ? 'text-foreground' 
-                                    : 'text-muted-foreground'
-                            }`}
-                        >
-                            {fileIcons[file] && (
-                                <div className="shrink-0">
-                                    {getIconComponent(fileIcons[file])}
-                                </div>
+            <div className="h-full flex flex-col">
+                <div className="pt-10 px-3">
+                    <div className="space-y-4 flex gap-5">
+                        <div className="w-1/4 flex flex-col gap-2">
+                            {files
+                                .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
+                                .sort((a, b) => a.order - b.order)
+                                .map(({ file }) => (
+                                <button
+                                    key={file}
+                                    onClick={() => setSelectedFile(file)}
+                                    className={`py-2 cursor-pointer items-center flex gap-2 px-3 rounded-lg transition-colors ${
+                                        selectedFile === file 
+                                            ? 'text-foreground dark:bg-[#171717] bg-[#fafafa]' 
+                                            : 'text-muted-foreground hover:text-foreground hover:dark:bg-[#171717] hover:bg-[#fafafa]'
+                                    }`}
+                                >
+                                    {fileIcons[file] && (
+                                        <div className="shrink-0">
+                                            {getIconComponent(fileIcons[file])}
+                                        </div>
+                                    )}
+                                    <span className="text-sm font-medium">{file.replace('.md', '')}</span>
+                                </button>
+                            ))}
+                        </div>
+                        <div className="flex-1 prose dark:prose-invert max-w-none">
+                            {loading ? null : (
+                                <>
+                                    <ReactMarkdown>{content}</ReactMarkdown>
+                                </>
                             )}
-                            {file.replace('.md', '')}
-                        </button>
-                    ))}
-                </div>
-                <div className="w-3/4">
-                    {loading ? (
-                        <Spinner />
-                    ) : (
-                        <ReactMarkdown>{content}</ReactMarkdown>
-                    )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
