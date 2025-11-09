@@ -1,5 +1,5 @@
 ---
-icon: BookOpen
+icon: Hand
 ---
 
 # Welcome

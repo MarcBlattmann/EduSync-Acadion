@@ -70,7 +70,11 @@ export default function DocsPage() {
                         <button
                             key={file}
                             onClick={() => setSelectedFile(file)}
-                            className='w-fit py-2 cursor-pointer flex gap-2'
+                            className={`w-fit py-2 cursor-pointer items-center flex gap-2 ${
+                                selectedFile === file 
+                                    ? 'text-white' 
+                                    : 'text-muted-foreground'
+                            }`}
                         >
                             {fileIcons[file] && (
                                 <div className="shrink-0">
