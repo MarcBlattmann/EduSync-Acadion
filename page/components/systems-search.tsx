@@ -68,7 +68,7 @@ export default function SystemsSearch() {
   const handleSelectSystem = (systemName: string) => {
     setOpen(false)
     setSearchQuery("")
-    router.push(`/systems/${systemName}`)
+    router.push(`/systems/${encodeURIComponent(systemName)}`)
   }
 
   return (

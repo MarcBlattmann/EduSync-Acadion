@@ -2,7 +2,7 @@
     "systems": [
         {
             "id": 1,
-            "name": "Hexa-(1-6)",
+            "name": "Hexa (1-6)",
             "last_modified": "2025-11-01",
             "used_in": ["CH", "LI"],
             "passing_percent": 60,

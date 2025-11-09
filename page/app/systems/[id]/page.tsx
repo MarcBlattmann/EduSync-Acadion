@@ -14,7 +14,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 
 export default function ConvertPage({ params }: { params: Promise<{ id: string }> }) {
     const resolvedParams = use(params);
-    const [selectedSystemName] = useState<string | null>(resolvedParams.id || null);
+    const decodedSystemName = decodeURIComponent(resolvedParams.id);
+    const [selectedSystemName] = useState<string | null>(decodedSystemName || null);
     
     const selectedSystem = selectedSystemName ? getSystemByName(selectedSystemName) : null;
 
