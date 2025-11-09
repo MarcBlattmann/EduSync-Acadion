@@ -70,7 +70,7 @@ export default function DocsPage() {
     return (
         <>
             <Navbar />
-            <div className="flex px-4">
+            <div className="flex px-4 mt-5">
                 <div className="w-1/4 flex flex-col">
                     {files
                         .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
