@@ -30,14 +30,14 @@ export default function Navbar() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className="cursor-pointer">
-                  <Link href="/systems">
+                  <Link href="/systems" className="px-3 py-2">
                     Systems
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className="cursor-pointer">
-                  <Link href="/docs">
+                  <Link href="/docs" className="px-3 py-2">
                     Docs
                   </Link>
                 </NavigationMenuLink>
