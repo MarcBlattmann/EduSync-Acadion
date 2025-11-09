@@ -12,6 +12,7 @@ export default function DocsPage() {
     const [content, setContent] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [fileIcons, setFileIcons] = useState<Record<string, string>>({});
+    const [fileOrder, setFileOrder] = useState<Record<string, number>>({});
 
     useEffect(() => {
         fetch('/api/docs')
@@ -40,10 +41,15 @@ export default function DocsPage() {
                         
                         const iconMatch = frontmatter.match(/icon:\s*(\w+)/);
                         const icon = iconMatch ? iconMatch[1] : '';
+                        const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
+                        const order = orderMatch ? parseFloat(orderMatch[1]) : Infinity;
+                        
                         setFileIcons(prev => ({ ...prev, [selectedFile]: icon }));
+                        setFileOrder(prev => ({ ...prev, [selectedFile]: order }));
                         setContent(content);
                     } else {
                         setFileIcons(prev => ({ ...prev, [selectedFile]: '' }));
+                        setFileOrder(prev => ({ ...prev, [selectedFile]: Infinity }));
                         setContent(text);
                     }
                     setLoading(false);
@@ -66,7 +72,10 @@ export default function DocsPage() {
             <Navbar />
             <div className="flex px-4">
                 <div className="w-1/4 flex flex-col">
-                    {files.map((file) => (
+                    {files
+                        .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
+                        .sort((a, b) => a.order - b.order)
+                        .map(({ file }) => (
                         <button
                             key={file}
                             onClick={() => setSelectedFile(file)}

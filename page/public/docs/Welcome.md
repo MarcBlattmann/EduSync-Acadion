@@ -1,5 +1,6 @@
 ---
 icon: Hand
+order: 1
 ---
 
 # Welcome
