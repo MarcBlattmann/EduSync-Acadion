@@ -37,7 +37,7 @@ export default function Navbar() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className="cursor-pointer">
-                  <Link href="/convert">
+                  <Link href="/docs">
                     Docs
                   </Link>
                 </NavigationMenuLink>
