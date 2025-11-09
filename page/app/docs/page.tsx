@@ -72,7 +72,7 @@ export default function DocsPage() {
                             onClick={() => setSelectedFile(file)}
                             className={`w-fit py-2 cursor-pointer items-center flex gap-2 ${
                                 selectedFile === file 
-                                    ? 'text-white' 
+                                    ? 'text-foreground' 
                                     : 'text-muted-foreground'
                             }`}
                         >
