@@ -47,11 +47,11 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                                 <ReactMarkdown>{selectedSystem.info}</ReactMarkdown>
                             </div>
                             <div className="w-1/6 flex flex-col gap-3">
-                                <div className="dark:bg-[#171717] bg-[#fafafa] h-fit py-2 px-3 rounded-lg">
+                                <div className="dark:bg-[#171717] bg-[#fafafa] h-fit py-2 px-3 rounded-lg dark:border-0 border">
                                     <div className="font-medium">ID : {selectedSystem.id}</div>
                                 </div>
                                 {selectedSystem.used_in && (
-                                    <div className="dark:bg-[#171717] bg-[#fafafa] h-fit py-2 px-3 rounded-lg flex flex-col gap-1">
+                                    <div className="dark:bg-[#171717] bg-[#fafafa] dark:border-0 border h-fit pt-2 pb-3 px-3 rounded-lg flex flex-col gap-1">
                                         <div className="font-medium">Used in :</div>
                                         <div className="flex gap-2 flex-wrap">
                                             {selectedSystem.used_in.map((countryCode, index) => (
