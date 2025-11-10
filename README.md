@@ -13,7 +13,7 @@ This repository provides utilities to work with grade-systems: look up systems, 
 Install from npm:
 
 ```bash
-npm install edusync-acadion
+npm i edusync-acadion
 ```
 
 ## Contributing
