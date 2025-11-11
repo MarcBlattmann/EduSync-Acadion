@@ -44,10 +44,10 @@ export const LinkPreview = ({
       meta: false,
       embed: "screenshot.url",
       colorScheme: "dark",
-      "viewport.isMobile": true,
+      "viewport.isMobile": false,
       "viewport.deviceScaleFactor": 1,
-      "viewport.width": width * 3,
-      "viewport.height": height * 3,
+      "viewport.width": width * 6,
+      "viewport.height": height * 6,
     });
     src = `https://api.microlink.io/?${params}`;
   } else {
