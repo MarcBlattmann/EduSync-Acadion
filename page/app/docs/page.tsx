@@ -24,14 +24,12 @@ export default function DocsPage() {
 
         const iconMatch = frontmatter.match(/icon:\s*(\w+)/);
         const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
-        const titleMatch = frontmatter.match(/title:\s*(.+)/);
 
         return {
             content: markdownContent,
             metadata: {
                 icon: iconMatch ? iconMatch[1] : '',
                 order: orderMatch ? parseFloat(orderMatch[1]) : Infinity,
-                title: titleMatch ? titleMatch[1].trim() : '',
             }
         };
     };
