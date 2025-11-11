@@ -4,16 +4,15 @@ import { useEffect, useState } from 'react';
 import Navbar from "@/components/navbar"
 import ReactMarkdown from 'react-markdown';
 import { CodeBlock } from '@/components/code-block';
-import * as Icons from 'lucide-react';
+import { DocsTree, DocItem, findFirstFile } from '@/components/docs-tree';
 
 const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 
 export default function DocsPage() {
-    const [files, setFiles] = useState<string[]>([]);
+    const [tree, setTree] = useState<DocItem[]>([]);
     const [selectedFile, setSelectedFile] = useState<string>('');
     const [content, setContent] = useState<string>('');
-    const [fileIcons, setFileIcons] = useState<Record<string, string>>({});
-    const [fileOrder, setFileOrder] = useState<Record<string, number>>({});
+    const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
 
     const parseFrontmatter = (text: string) => {
         const match = text.match(FRONTMATTER_REGEX);
@@ -38,59 +37,45 @@ export default function DocsPage() {
         fetch('/api/docs')
             .then(res => res.json())
             .then(data => {
-                const docFiles = (data.files || []) as string[];
-                setFiles(docFiles);
+                const docTree = (data.tree || []) as DocItem[];
+                setTree(docTree);
 
-                if (docFiles.length === 0) return;
+                // Find and select first file
+                const firstFile = findFirstFile(docTree, (folderPath) => {
+                    setExpandedFolders(prev => new Set(prev).add(folderPath));
+                });
 
-                Promise.all(
-                    docFiles.map(file =>
-                        fetch(`/docs/${file}`)
-                            .then(res => res.text())
-                            .then(text => ({ file, ...parseFrontmatter(text) }))
-                    )
-                ).then(results => {
-                    const fileWithLowestOrder = results.reduce((lowest, current) => {
-                        const currentOrder = current.metadata?.order ?? Infinity;
-                        const lowestOrder = lowest.metadata?.order ?? Infinity;
-                        return currentOrder < lowestOrder ? current : lowest;
-                    });
-
-                    setSelectedFile(fileWithLowestOrder.file);
-                }).catch(err => console.error('Failed to fetch docs:', err));
+                if (firstFile) {
+                    setSelectedFile(firstFile);
+                }
             })
-            .catch(err => console.error('Failed to fetch docs list:', err));
+            .catch(err => console.error('Failed to fetch docs:', err));
     }, []);
 
     useEffect(() => {
         if (!selectedFile) return;
 
-        fetch(`/docs/${selectedFile}`)
+        fetch(`/docs/${selectedFile}.md`)
             .then(res => res.text())
             .then(text => {
-                const { content: markdownContent, metadata } = parseFrontmatter(text);
-
+                const { content: markdownContent } = parseFrontmatter(text);
                 setContent(markdownContent);
-                if (metadata) {
-                    setFileIcons(prev => ({ ...prev, [selectedFile]: metadata.icon }));
-                    setFileOrder(prev => ({ ...prev, [selectedFile]: metadata.order }));
-                }
             })
-            .catch(err => {
-                console.error('Failed to fetch content:', err);
-            });
+            .catch(err => console.error('Failed to fetch content:', err));
     }, [selectedFile]);
 
-    const getIconComponent = (name: string) => {
-        if (!name) return null;
-
-        const IconComponent = Icons[name as keyof typeof Icons] as React.ComponentType<any>;
-        return IconComponent ? <IconComponent size={20} /> : null;
+    // Handlers
+    const handleToggleFolder = (path: string) => {
+        setExpandedFolders(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(path)) {
+                newSet.delete(path);
+            } else {
+                newSet.add(path);
+            }
+            return newSet;
+        });
     };
-
-    const sortedFiles = files
-        .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
-        .sort((a, b) => a.order - b.order);
 
     return (
         <>
@@ -99,26 +84,13 @@ export default function DocsPage() {
                 <div className="pt-10 px-3">
                     <div className="space-y-4 flex gap-5">
                         {/* Sidebar */}
-                        <div className="w-1/4 flex flex-col gap-2">
-                            {sortedFiles.map(({ file }) => (
-                                <button
-                                    key={file}
-                                    onClick={() => setSelectedFile(file)}
-                                    className={`py-2 cursor-pointer items-center flex gap-2 px-3 rounded-lg transition-colors ${
-                                        selectedFile === file
-                                            ? 'text-foreground dark:bg-[#171717] bg-[#fafafa]'
-                                            : 'text-muted-foreground hover:text-foreground hover:dark:bg-[#171717] hover:bg-[#fafafa]'
-                                    }`}
-                                >
-                                    {fileIcons[file] && (
-                                        <div className="shrink-0">
-                                            {getIconComponent(fileIcons[file])}
-                                        </div>
-                                    )}
-                                    <span className="text-sm font-medium">{file.replace('.md', '')}</span>
-                                </button>
-                            ))}
-                        </div>
+                        <DocsTree
+                            tree={tree}
+                            selectedFile={selectedFile}
+                            expandedFolders={expandedFolders}
+                            onSelectFile={setSelectedFile}
+                            onToggleFolder={handleToggleFolder}
+                        />
 
                         {/* Content */}
                         <div className="flex-1 prose dark:prose-invert max-w-none">
