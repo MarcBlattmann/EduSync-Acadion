@@ -40,7 +40,7 @@ export function MarkdownLink({ href, children }: MarkdownLinkProps) {
   }
 
   return (
-    <LinkPreview url={url} className="text-blue-600 dark:text-blue-400 hover:underline">
+    <LinkPreview url={url} className="hover:underline">
       {children}
     </LinkPreview>
   );
