@@ -45,21 +45,27 @@ function getSystemByName(name) {
  * @returns {number} The corresponding percentage or throws an error if not found.
  */
 function _numericGradeToPercent(mappings, gradeNum) {
-  const numeric = mappings
+  const numericMappings = mappings
     .filter(m => typeof m.grade === 'number' && !Number.isNaN(m.grade))
     .slice()
     .sort((a, b) => a.grade - b.grade);
 
-  if (numeric.length >= 2) {
-    if (gradeNum <= numeric[0].grade) return numeric[0].percent;
-    if (gradeNum >= numeric[numeric.length - 1].grade) return numeric[numeric.length - 1].percent;
+  if (numericMappings.length >= 2) {
+    const minGrade = numericMappings[0];
+    const maxGrade = numericMappings[numericMappings.length - 1];
 
-    for (let i = 0; i < numeric.length - 1; i++) {
-      const a = numeric[i];
-      const b = numeric[i + 1];
-      if (gradeNum >= a.grade && gradeNum <= b.grade) {
-        const t = (gradeNum - a.grade) / (b.grade - a.grade);
-        return a.percent + t * (b.percent - a.percent);
+    if (gradeNum <= minGrade.grade) return minGrade.percent;
+
+    if (gradeNum >= maxGrade.grade) return maxGrade.percent;
+
+    for (let i = 0; i < numericMappings.length - 1; i++) {
+      const lowerBound = numericMappings[i];
+      const upperBound = numericMappings[i + 1];
+
+      if (gradeNum >= lowerBound.grade && gradeNum <= upperBound.grade) {
+        const interpolationFactor = (gradeNum - lowerBound.grade) / (upperBound.grade - lowerBound.grade);
+        
+        return lowerBound.percent + interpolationFactor * (upperBound.percent - lowerBound.percent);
       }
     }
   }
