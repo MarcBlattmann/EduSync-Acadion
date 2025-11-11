@@ -3,99 +3,95 @@
 import { useEffect, useState } from 'react';
 import Navbar from "@/components/navbar"
 import ReactMarkdown from 'react-markdown';
-import { Spinner } from '@/components/ui/spinner';
 import * as Icons from 'lucide-react';
+
+const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 
 export default function DocsPage() {
     const [files, setFiles] = useState<string[]>([]);
-    const [selectedFile, setSelectedFile] = useState<string>('Welcome.md');
+    const [selectedFile, setSelectedFile] = useState<string>('');
     const [content, setContent] = useState<string>('');
-    const [title, setTitle] = useState<string>('');
-    const [loading, setLoading] = useState(false);
     const [fileIcons, setFileIcons] = useState<Record<string, string>>({});
     const [fileOrder, setFileOrder] = useState<Record<string, number>>({});
+
+    const parseFrontmatter = (text: string) => {
+        const match = text.match(FRONTMATTER_REGEX);
+        if (!match) return { metadata: null, content: text };
+
+        const frontmatter = match[1];
+        const markdownContent = match[2];
+
+        const iconMatch = frontmatter.match(/icon:\s*(\w+)/);
+        const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
+        const titleMatch = frontmatter.match(/title:\s*(.+)/);
+
+        return {
+            content: markdownContent,
+            metadata: {
+                icon: iconMatch ? iconMatch[1] : '',
+                order: orderMatch ? parseFloat(orderMatch[1]) : Infinity,
+                title: titleMatch ? titleMatch[1].trim() : '',
+            }
+        };
+    };
 
     useEffect(() => {
         fetch('/api/docs')
             .then(res => res.json())
             .then(data => {
-                setFiles(data.files || []);
-                if (data.files && data.files.length > 0) {
-                    let lowestOrderFile = (data.files as string[])[0];
-                    let lowestOrder = Infinity;
-                    
-                    Promise.all(
-                        (data.files as string[]).map(file =>
-                            fetch(`/docs/${file}`)
-                                .then(res => res.text())
-                                .then(text => {
-                                    const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
-                                    const match = text.match(frontmatterRegex);
-                                    if (match) {
-                                        const frontmatter = match[1];
-                                        const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
-                                        if (orderMatch) {
-                                            const order = parseFloat(orderMatch[1]);
-                                            if (order < lowestOrder) {
-                                                lowestOrder = order;
-                                                lowestOrderFile = file;
-                                            }
-                                        }
-                                    }
-                                })
-                        )
-                    ).then(() => {
-                        setSelectedFile(lowestOrderFile);
-                    }).catch(err => console.error('Failed to fetch file metadata:', err));
-                }
+                const docFiles = (data.files || []) as string[];
+                setFiles(docFiles);
+
+                if (docFiles.length === 0) return;
+
+                Promise.all(
+                    docFiles.map(file =>
+                        fetch(`/docs/${file}`)
+                            .then(res => res.text())
+                            .then(text => ({ file, ...parseFrontmatter(text) }))
+                    )
+                ).then(results => {
+                    const fileWithLowestOrder = results.reduce((lowest, current) => {
+                        const currentOrder = current.metadata?.order ?? Infinity;
+                        const lowestOrder = lowest.metadata?.order ?? Infinity;
+                        return currentOrder < lowestOrder ? current : lowest;
+                    });
+
+                    setSelectedFile(fileWithLowestOrder.file);
+                }).catch(err => console.error('Failed to fetch docs:', err));
             })
-            .catch(err => console.error('Failed to fetch docs:', err));
+            .catch(err => console.error('Failed to fetch docs list:', err));
     }, []);
 
     useEffect(() => {
-        if (selectedFile) {
-            setLoading(true);
-            fetch(`/docs/${selectedFile}`)
-                .then(res => res.text())
-                .then(text => {
-                    const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
-                    const match = text.match(frontmatterRegex);
-                    
-                    if (match) {
-                        const frontmatter = match[1];
-                        const content = match[2];
-                        
-                        const iconMatch = frontmatter.match(/icon:\s*(\w+)/);
-                        const icon = iconMatch ? iconMatch[1] : '';
-                        const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
-                        const order = orderMatch ? parseFloat(orderMatch[1]) : Infinity;
-                        const titleMatch = frontmatter.match(/title:\s*(.+)/);
-                        const docTitle = titleMatch ? titleMatch[1].trim() : selectedFile.replace('.md', '');
-                        
-                        setFileIcons(prev => ({ ...prev, [selectedFile]: icon }));
-                        setFileOrder(prev => ({ ...prev, [selectedFile]: order }));
-                        setTitle(docTitle);
-                        setContent(content);
-                    } else {
-                        setFileIcons(prev => ({ ...prev, [selectedFile]: '' }));
-                        setFileOrder(prev => ({ ...prev, [selectedFile]: Infinity }));
-                        setTitle(selectedFile.replace('.md', ''));
-                        setContent(text);
-                    }
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error('Failed to fetch content:', err);
-                    setLoading(false);
-                });
-        }
+        if (!selectedFile) return;
+
+        fetch(`/docs/${selectedFile}`)
+            .then(res => res.text())
+            .then(text => {
+                const { content: markdownContent, metadata } = parseFrontmatter(text);
+
+                setContent(markdownContent);
+                if (metadata) {
+                    setFileIcons(prev => ({ ...prev, [selectedFile]: metadata.icon }));
+                    setFileOrder(prev => ({ ...prev, [selectedFile]: metadata.order }));
+                }
+            })
+            .catch(err => {
+                console.error('Failed to fetch content:', err);
+            });
     }, [selectedFile]);
 
     const getIconComponent = (name: string) => {
         if (!name) return null;
-        const Icon = Icons[name as keyof typeof Icons] as any;
-        return Icon ? <Icon size={20} /> : null;
+
+        const IconComponent = Icons[name as keyof typeof Icons] as React.ComponentType<any>;
+        return IconComponent ? <IconComponent size={20} /> : null;
     };
+
+    const sortedFiles = files
+        .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
+        .sort((a, b) => a.order - b.order);
 
     return (
         <>
@@ -103,17 +99,15 @@ export default function DocsPage() {
             <div className="h-full flex flex-col">
                 <div className="pt-10 px-3">
                     <div className="space-y-4 flex gap-5">
+                        {/* Sidebar */}
                         <div className="w-1/4 flex flex-col gap-2">
-                            {files
-                                .map(file => ({ file, order: fileOrder[file] ?? Infinity }))
-                                .sort((a, b) => a.order - b.order)
-                                .map(({ file }) => (
+                            {sortedFiles.map(({ file }) => (
                                 <button
                                     key={file}
                                     onClick={() => setSelectedFile(file)}
                                     className={`py-2 cursor-pointer items-center flex gap-2 px-3 rounded-lg transition-colors ${
-                                        selectedFile === file 
-                                            ? 'text-foreground dark:bg-[#171717] bg-[#fafafa]' 
+                                        selectedFile === file
+                                            ? 'text-foreground dark:bg-[#171717] bg-[#fafafa]'
                                             : 'text-muted-foreground hover:text-foreground hover:dark:bg-[#171717] hover:bg-[#fafafa]'
                                     }`}
                                 >
@@ -126,12 +120,10 @@ export default function DocsPage() {
                                 </button>
                             ))}
                         </div>
+
+                        {/* Content */}
                         <div className="flex-1 prose dark:prose-invert max-w-none">
-                            {loading ? null : (
-                                <>
-                                    <ReactMarkdown>{content}</ReactMarkdown>
-                                </>
-                            )}
+                            <ReactMarkdown>{content}</ReactMarkdown>
                         </div>
                     </div>
                 </div>
