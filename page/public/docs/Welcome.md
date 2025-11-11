@@ -5,4 +5,11 @@ order: 1
 
 # Welcome
 
-Welcome to the documentation. Start editing markdown files in the `public/docs` folder to see them displayed here.
+Welcome to EduSync Acadion.
+
+## Instalation
+
+Install the package with 
+```
+npm install edusync-acadion
+```

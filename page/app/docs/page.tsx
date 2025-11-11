@@ -33,7 +33,7 @@ export default function DocsPage() {
             fetch(`/docs/${selectedFile}`)
                 .then(res => res.text())
                 .then(text => {
-                    const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+                    const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
                     const match = text.match(frontmatterRegex);
                     
                     if (match) {
