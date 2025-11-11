@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Navbar from "@/components/navbar"
 import ReactMarkdown from 'react-markdown';
 import { CodeBlock } from '@/components/code-block';
+import { MarkdownLink } from '@/components/markdown-link';
 import { DocsTree, DocItem, findFirstFile } from '@/components/docs-tree';
 
 const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
@@ -40,7 +41,6 @@ export default function DocsPage() {
                 const docTree = (data.tree || []) as DocItem[];
                 setTree(docTree);
 
-                // Find and select first file
                 const firstFile = findFirstFile(docTree, (folderPath) => {
                     setExpandedFolders(prev => new Set(prev).add(folderPath));
                 });
@@ -64,7 +64,6 @@ export default function DocsPage() {
             .catch(err => console.error('Failed to fetch content:', err));
     }, [selectedFile]);
 
-    // Handlers
     const handleToggleFolder = (path: string) => {
         setExpandedFolders(prev => {
             const newSet = new Set(prev);
@@ -94,7 +93,7 @@ export default function DocsPage() {
 
                         {/* Content */}
                         <div className="flex-1 prose dark:prose-invert max-w-none">
-                            <ReactMarkdown components={{ code: CodeBlock }}>
+                            <ReactMarkdown components={{ code: CodeBlock, a: MarkdownLink }}>
                                 {content}
                             </ReactMarkdown>
                         </div>
