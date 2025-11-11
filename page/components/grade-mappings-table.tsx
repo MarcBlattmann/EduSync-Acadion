@@ -1,6 +1,6 @@
 'use client';
 
-import { GradeSystem, getColor } from 'edusync-acadion';
+import { GradeSystem, getColor, getSystemById } from 'edusync-acadion';
 import {
   Table,
   TableBody,
@@ -40,7 +40,7 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
               orange: '#f97316',
               green: '#22c55e',
             };
-            const color = getColor(system.id, mapping.grade);
+            const color = getColor(system, mapping.grade);
             return (
             <TableRow key={index}>
               <TableCell className="font-medium hover:rounded-lg" style={{ color: colorMap[color] }}>{mapping.grade}</TableCell>
