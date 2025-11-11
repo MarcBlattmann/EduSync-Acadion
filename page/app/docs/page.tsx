@@ -21,7 +21,32 @@ export default function DocsPage() {
             .then(data => {
                 setFiles(data.files || []);
                 if (data.files && data.files.length > 0) {
-                    setSelectedFile(data.files[0]);
+                    let lowestOrderFile = (data.files as string[])[0];
+                    let lowestOrder = Infinity;
+                    
+                    Promise.all(
+                        (data.files as string[]).map(file =>
+                            fetch(`/docs/${file}`)
+                                .then(res => res.text())
+                                .then(text => {
+                                    const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
+                                    const match = text.match(frontmatterRegex);
+                                    if (match) {
+                                        const frontmatter = match[1];
+                                        const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
+                                        if (orderMatch) {
+                                            const order = parseFloat(orderMatch[1]);
+                                            if (order < lowestOrder) {
+                                                lowestOrder = order;
+                                                lowestOrderFile = file;
+                                            }
+                                        }
+                                    }
+                                })
+                        )
+                    ).then(() => {
+                        setSelectedFile(lowestOrderFile);
+                    }).catch(err => console.error('Failed to fetch file metadata:', err));
                 }
             })
             .catch(err => console.error('Failed to fetch docs:', err));
