@@ -2,13 +2,9 @@
 
 import Navbar from "@/components/navbar";
 import SystemsSearch from "@/components/systems-search";
-import { getAllSystems } from 'edusync-acadion';
-import { useRouter } from 'next/navigation';
 
 
 export default function SystemsPage() {
-    const router = useRouter();
-    const Systems = getAllSystems();
 
     return (
         <>

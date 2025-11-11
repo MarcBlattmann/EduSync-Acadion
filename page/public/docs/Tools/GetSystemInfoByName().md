@@ -1,0 +1,5 @@
+---
+icon: BookA
+---
+
+# GetSystemInfoByName()
