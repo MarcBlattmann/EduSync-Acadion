@@ -21,10 +21,10 @@ declare module 'edusync-acadion' {
   export function getAllSystems(): GradeSystem[];
   export function getSystemById(id: number): GradeSystem | undefined;
   export function getSystemByName(name: string): GradeSystem | undefined;
-  export function convertToPercent(systemId: number, grade: number | string): number;
-  export function percentToGrade(systemId: number, percent: number): number | string;
-  export function convertGradeToGrade(fromSystemId: number, toSystemId: number, grade: number | string): { grade: number | string };
-  export function getColor(systemId: number, grade: number | string): 'red' | 'orange' | 'green';
-  export function getGradeDescription(systemId: number, grade: number | string): string | null;
-  export function getSystemInfo(id: number): string | null;
+  export function convertToPercent(system: GradeSystem, grade: number | string): number;
+  export function percentToGrade(system: GradeSystem, percent: number): number | string;
+  export function convertGradeToGrade(fromSystem: GradeSystem, toSystem: GradeSystem, grade: number | string): { grade: number | string };
+  export function getColor(system: GradeSystem, grade: number | string): 'red' | 'orange' | 'green';
+  export function getGradeDescription(system: GradeSystem, grade: number | string): string | null;
+  export function getSystemInfo(system: GradeSystem): string | null;
 }
