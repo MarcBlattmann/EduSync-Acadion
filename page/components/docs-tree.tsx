@@ -62,7 +62,7 @@ const DocTreeItem = ({
             <div key={item.path}>
                 <button
                     onClick={() => onToggleFolder(item.path)}
-                    className="w-full py-2 px-3 rounded-lg transition-colors flex items-center gap-2 text-muted-foreground hover:text-foreground hover:dark:bg-[#171717] hover:bg-[#fafafa]"
+                    className="cursor-pointer w-full py-2 px-3 rounded-lg transition-colors flex items-center gap-2 text-muted-foreground hover:text-foreground hover:dark:bg-[#171717] hover:bg-[#fafafa]"
                     style={{ paddingLeft: `${12 + level * 12}px` }}
                     aria-expanded={isExpanded}
                 >
@@ -97,7 +97,7 @@ const DocTreeItem = ({
         <button
             key={item.path}
             onClick={() => onSelectFile(item.path)}
-            className={`w-full py-2 px-3 rounded-lg transition-colors flex items-center gap-2 ${
+            className={`w-full cursor-pointer py-2 px-3 rounded-lg transition-colors flex items-center gap-2 ${
                 isSelected
                     ? 'text-foreground dark:bg-[#171717] bg-[#fafafa]'
                     : 'text-muted-foreground hover:text-foreground hover:dark:bg-[#171717] hover:bg-[#fafafa]'

@@ -16,16 +16,16 @@ const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 
 function parseFrontmatter(text: string) {
   const match = text.match(FRONTMATTER_REGEX);
-  if (!match) return { metadata: null };
+  if (!match) return { metadata: undefined };
 
   const frontmatter = match[1];
 
-  const iconMatch = frontmatter.match(/icon:\s*(\w+)/);
+  const iconMatch = frontmatter.match(/icon:\s*(.+?)(?:\r?\n|$)/);
   const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
 
   return {
     metadata: {
-      icon: iconMatch ? iconMatch[1] : '',
+      icon: iconMatch ? iconMatch[1].trim() : '',
       order: orderMatch ? parseFloat(orderMatch[1]) : Infinity,
     }
   };
@@ -62,7 +62,7 @@ function buildDocTree(basePath: string, currentPath: string = ''): DocItem[] {
           name: item.replace('.md', ''),
           type: 'file',
           path: relativePath.replace('.md', ''),
-          ...(metadata && { metadata }),
+          metadata: metadata || undefined,
         });
       } catch {
         docItems.push({
