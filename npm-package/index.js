@@ -3,11 +3,10 @@ const systems = data.systems;
 
 /**
  * Get information about a specific Grade-system in Markdown format.
- * @param { number } id - The unique identifier of the Grade-system
+ * @param { Object } system - The Grade-system object
  * @returns { string|null } Markdown formatted information about the Grade-system or null if not found.
  */
-function getSystemInfo(id) {
-  const system = getSystemById(id);
+function getSystemInfo(system) {
   if (!system) return null;
   return system.info || null;
 }
@@ -77,15 +76,14 @@ function _numericGradeToPercent(mappings, gradeNum) {
 
 /**
  * Convert a grade to a percentage based on the Grade-system's mapping.
- * @param { number } systemId 
+ * @param { Object } system - The Grade-system object
  * @param { number|string } grade - numeric grade or string (e.g. "A" or "satisfying")
  * @returns { number } The grade converted to a grade percentage.
- * @throws { Error } If the Grade-system is not found.
+ * @throws { Error } If the grade is invalid.
  * @example
- * convertToPercent(1, 5); // returns 80
+ * convertToPercent(system, 5); // returns 80
  */
-function convertToPercent(systemId, grade) {
-  const system = getSystemById(systemId);
+function convertToPercent(system, grade) {
   if (!system) throw new Error('System not found');
 
   if (typeof grade === 'number' && !Number.isNaN(grade)) {
@@ -112,13 +110,12 @@ function convertToPercent(systemId, grade) {
 
 /**
  * Get the color representation of a grade within a specific Grade-system.
- * @param { number } systemId 
+ * @param { Object } system - The Grade-system object
  * @param { number|string } grade - numeric or string grade
  * @returns { string } The color representing the grade status.
  */
-function getColor(systemId, grade) {
-  const system = getSystemById(systemId);
-  const percent = convertToPercent(systemId, grade);
+function getColor(system, grade) {
+  const percent = convertToPercent(system, grade);
 
   if (percent < system.passing_percent) return 'red';
   if (percent < system.satisfactory_percent) return 'orange';
@@ -127,14 +124,13 @@ function getColor(systemId, grade) {
 
 /**
  * Get the description of a grade within a specific Grade-system.
- * @param { number } systemId 
+ * @param { Object } system - The Grade-system object
  * @param { number|string } grade - numeric or string grade
  * @returns { string|null } The description of the grade or null if not found.
  * @example
- * getGradeDescription(1, 5); // returns "Good"
+ * getGradeDescription(system, 5); // returns "Good"
  */
-function getGradeDescription(systemId, grade) {
-  const system = getSystemById(systemId);
+function getGradeDescription(system, grade) {
   if (!system) return null;
 
   if (typeof grade === 'string') {
@@ -150,7 +146,7 @@ function getGradeDescription(systemId, grade) {
 
   if (typeof grade === 'number' && !Number.isNaN(grade)) {
     try {
-      const percent = convertToPercent(systemId, grade);
+      const percent = convertToPercent(system, grade);
       let closest = system.mappings[0];
       for (const m of system.mappings) {
         if (Math.abs(m.percent - percent) < Math.abs(closest.percent - percent)) {
@@ -176,13 +172,11 @@ function getGradeDescription(systemId, grade) {
  * Convert a percentage (0-100) into a grade for a specific system using linear
  * interpolation across the system's grade range.
  *
- * @param {number} systemId
+ * @param {Object} system - The Grade-system object
  * @param {number} percent - value between 0 and 100
- * @throws {Error} If the Grade-system is not found
  * @returns {number|string} interpolated grade in the target system (may be numeric or a mapping-grade string)
  */
-function percentToGrade(systemId, percent) {
-  const system = getSystemById(systemId);
+function percentToGrade(system, percent) {
   if (!system) throw new Error('System not found');
 
   const p = Math.max(0, Math.min(100, percent));
@@ -213,21 +207,17 @@ function percentToGrade(systemId, percent) {
 
 /**
  * Convert a grade from one Grade-system to another.
- * @param {number} fromSystemId - ID of the source grade system
- * @param {number} toSystemId - ID of the target grade system
+ * @param {Object} fromSystem - The source Grade-system object
+ * @param {Object} toSystem - The target Grade-system object
  * @param {number|string} grade - Grade in the source system to convert (numeric or string)
- * @throws {Error} If either Grade-system is not found
  * @returns {{ grade: number|string }} The converted grade in the target system
  */
-function convertGradeToGrade(fromSystemId, toSystemId, grade) {
-  const fromSystem = getSystemById(fromSystemId);
-  const toSystem = getSystemById(toSystemId);
-
+function convertGradeToGrade(fromSystem, toSystem, grade) {
   if (!fromSystem) throw new Error('Source system not found');
   if (!toSystem) throw new Error('Target system not found');
 
-  const percent = convertToPercent(fromSystemId, grade);
-  const converted = percentToGrade(toSystemId, percent);
+  const percent = convertToPercent(fromSystem, grade);
+  const converted = percentToGrade(toSystem, percent);
 
   return { grade: converted };
 }
