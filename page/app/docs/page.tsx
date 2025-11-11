@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from "@/components/navbar"
 import ReactMarkdown from 'react-markdown';
+import { CodeBlock } from '@/components/code-block';
 import * as Icons from 'lucide-react';
 
 const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
@@ -123,7 +124,9 @@ export default function DocsPage() {
 
                         {/* Content */}
                         <div className="flex-1 prose dark:prose-invert max-w-none">
-                            <ReactMarkdown>{content}</ReactMarkdown>
+                            <ReactMarkdown components={{ code: CodeBlock }}>
+                                {content}
+                            </ReactMarkdown>
                         </div>
                     </div>
                 </div>
