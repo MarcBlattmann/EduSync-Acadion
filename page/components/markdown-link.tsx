@@ -13,10 +13,14 @@ export function MarkdownLink({ href, children }: MarkdownLinkProps) {
   
   if (!href) return <a>{children}</a>;
 
+  const isInternal = href.startsWith('/');
+  
   const isLocalhost = typeof window !== 'undefined' && (
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1'
   );
+
+  const url = isInternal ? `${window.location.origin}${href}` : href;
 
   if (isLocalhost) {
     return (
@@ -36,7 +40,7 @@ export function MarkdownLink({ href, children }: MarkdownLinkProps) {
   }
 
   return (
-    <LinkPreview url={href} className="text-blue-600 dark:text-blue-400 hover:underline">
+    <LinkPreview url={url} className="text-blue-600 dark:text-blue-400 hover:underline">
       {children}
     </LinkPreview>
   );
