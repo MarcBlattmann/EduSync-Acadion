@@ -15,3 +15,6 @@ Run this command in your project :
 ```
 npm install edusync-acadion
 ```
+
+## Finished
+You have made it now you can use all tools 🥳🎉
