@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Navbar from "@/components/navbar"
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { CodeBlock } from '@/components/code-block';
 import { MarkdownLink } from '@/components/markdown-link';
 import { DocsTree, DocItem, findFirstFile } from '@/components/docs-tree';
@@ -93,7 +95,11 @@ export default function DocsPage() {
 
                         {/* Content */}
                         <div className="flex-1 prose dark:prose-invert max-w-none">
-                            <ReactMarkdown components={{ code: CodeBlock, a: MarkdownLink }}>
+                            <ReactMarkdown 
+                                components={{ code: CodeBlock, a: MarkdownLink }}
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                            >
                                 {content}
                             </ReactMarkdown>
                         </div>

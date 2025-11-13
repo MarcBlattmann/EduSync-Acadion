@@ -166,9 +166,18 @@
     margin-bottom: 0.75rem;
   }
 
+  .prose ul {
+    list-style-type: disc;
+  }
+
+  .prose ol {
+    list-style-type: decimal;
+  }
+
   .prose li {
     margin-bottom: 0.25rem;
     color: var(--color-foreground);
+    list-style-position: inside;
   }
 
   .prose strong {
