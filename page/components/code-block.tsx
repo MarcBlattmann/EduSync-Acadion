@@ -28,14 +28,14 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
     if (isMultiLine) {
         return (
             <div className="relative group w-full">
-                <pre className={`${className} py-0! px-2! m-0! leading-none overflow-x-auto overflow-y-hidden`}>
+                <pre className={`${className} py-3 px-4 m-0! leading-none overflow-x-auto overflow-y-hidden`}>
                     <code className="leading-none">{code}</code>
                 </pre>
                 <Button
                     onClick={handleCopy}
                     size="icon"
                     variant="ghost"
-                    className="absolute top-1 cursor-pointer right-1 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute top-2 cursor-pointer right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
                     title="Code kopieren"
                 >
                     {copied ? (
@@ -50,24 +50,22 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
 
     return (
         <div className="relative group w-full">
-            <div className="flex items-center justify-between gap-2">
-                <pre className={`${className} py-0! px-2! m-0! leading-none overflow-x-auto overflow-y-hidden flex-1 min-w-0`}>
-                    <code className="leading-none">{code}</code>
-                </pre>
-                <Button
-                    onClick={handleCopy}
-                    size="icon"
-                    variant="ghost"
-                    className="h-6 w-6 cursor-pointer shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                    title="Code kopieren"
-                >
-                    {copied ? (
-                        <Check size={14} className="text-green-500" />
-                    ) : (
-                        <Copy size={14} />
-                    )}
-                </Button>
-            </div>
+            <pre className={`${className} py-3 px-4 m-0! leading-none overflow-x-auto overflow-y-hidden`}>
+                <code className="leading-none">{code}</code>
+            </pre>
+            <Button
+                onClick={handleCopy}
+                size="icon"
+                variant="ghost"
+                className="absolute top-2 cursor-pointer right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                title="Code kopieren"
+            >
+                {copied ? (
+                    <Check size={14} className="text-green-500" />
+                ) : (
+                    <Copy size={14} />
+                )}
+            </Button>
         </div>
     );
 }

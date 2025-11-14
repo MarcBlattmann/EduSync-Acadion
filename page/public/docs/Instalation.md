@@ -13,7 +13,14 @@ To install the package in to your project follow the instructions below 😊
 ## Install the package
 Run this command in your project :
 ```
+?npm
 npm install edusync-acadion
+?yarn
+yarn add edusync-acadion -1
+?bun
+bun add edusync-acadion
+?pnpm
+pnpm add edusync-acadion
 ```
 
 ## Finished

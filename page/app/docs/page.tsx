@@ -8,6 +8,7 @@ import rehypeRaw from 'rehype-raw';
 import { CodeBlock } from '@/components/code-block';
 import { MarkdownLink } from '@/components/markdown-link';
 import { DocsTree, DocItem, findFirstFile } from '@/components/docs-tree';
+import { OptionSelector } from '@/components/option-selector';
 
 const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 
@@ -15,7 +16,20 @@ export default function DocsPage() {
     const [tree, setTree] = useState<DocItem[]>([]);
     const [selectedFile, setSelectedFile] = useState<string>('');
     const [content, setContent] = useState<string>('');
+    const [originalContent, setOriginalContent] = useState<string>('');
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
+
+    const parseOptions = (text: string) => {
+        const codeBlockMatch = text.match(/```[\s\S]*?```/);
+        if (codeBlockMatch) {
+            const codeBlock = codeBlockMatch[0];
+            const optionRegex = /\?/;
+            if (optionRegex.test(codeBlock)) {
+                return text.replace(codeBlockMatch[0], '<OPTION_SELECTOR/>');
+            }
+        }
+        return text;
+    };
 
     const parseFrontmatter = (text: string) => {
         const match = text.match(FRONTMATTER_REGEX);
@@ -61,7 +75,9 @@ export default function DocsPage() {
             .then(res => res.text())
             .then(text => {
                 const { content: markdownContent } = parseFrontmatter(text);
-                setContent(markdownContent);
+                const processedContent = parseOptions(markdownContent);
+                setOriginalContent(markdownContent);
+                setContent(processedContent);
             })
             .catch(err => console.error('Failed to fetch content:', err));
     }, [selectedFile]);
@@ -95,13 +111,38 @@ export default function DocsPage() {
 
                         {/* Content */}
                         <div className="flex-1 prose dark:prose-invert max-w-none">
-                            <ReactMarkdown 
-                                components={{ code: CodeBlock, a: MarkdownLink }}
-                                remarkPlugins={[remarkGfm]}
-                                rehypePlugins={[rehypeRaw]}
-                            >
-                                {content}
-                            </ReactMarkdown>
+                            {content.includes('<OPTION_SELECTOR/>') ? (
+                                <>
+                                    {content.split('<OPTION_SELECTOR/>').map((part, idx) => (
+                                        <div key={idx}>
+                                            <ReactMarkdown 
+                                                components={{
+                                                    code: CodeBlock,
+                                                    a: MarkdownLink,
+                                                }}
+                                                remarkPlugins={[remarkGfm]}
+                                                rehypePlugins={[rehypeRaw]}
+                                            >
+                                                {part}
+                                            </ReactMarkdown>
+                                            {idx < content.split('<OPTION_SELECTOR/>').length - 1 && (
+                                                <OptionSelector content={originalContent} />
+                                            )}
+                                        </div>
+                                    ))}
+                                </>
+                            ) : (
+                                <ReactMarkdown 
+                                    components={{
+                                        code: CodeBlock,
+                                        a: MarkdownLink,
+                                    }}
+                                    remarkPlugins={[remarkGfm]}
+                                    rehypePlugins={[rehypeRaw]}
+                                >
+                                    {content}
+                                </ReactMarkdown>
+                            )}
                         </div>
                     </div>
                 </div>
