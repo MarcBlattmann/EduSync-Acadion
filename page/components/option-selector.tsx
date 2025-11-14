@@ -68,7 +68,7 @@ export function OptionSelector({ content }: { content: string }) {
             key={option.id}
             variant={selected === option.id ? 'default' : 'outline'}
             onClick={() => setSelected(option.id)}
-            className="capitalize"
+            className={`border-0 cursor-pointer`}
           >
             {option.id}
           </Button>

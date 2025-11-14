@@ -16,7 +16,7 @@ Run this command in your project :
 ?npm
 npm install edusync-acadion
 ?yarn
-yarn add edusync-acadion -1
+yarn add edusync-acadion
 ?bun
 bun add edusync-acadion
 ?pnpm
