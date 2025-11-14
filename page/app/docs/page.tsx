@@ -1,152 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Navbar from "@/components/navbar"
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
-import { CodeBlock } from '@/components/code-block';
-import { MarkdownLink } from '@/components/markdown-link';
-import { DocsTree, DocItem, findFirstFile } from '@/components/docs-tree';
-import { OptionSelector } from '@/components/option-selector';
-
-const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { DocItem, findFirstFile } from '@/components/docs-tree';
 
 export default function DocsPage() {
-    const [tree, setTree] = useState<DocItem[]>([]);
-    const [selectedFile, setSelectedFile] = useState<string>('');
-    const [content, setContent] = useState<string>('');
-    const [originalContent, setOriginalContent] = useState<string>('');
-    const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
-
-    const parseOptions = (text: string) => {
-        const codeBlockMatch = text.match(/```[\s\S]*?```/);
-        if (codeBlockMatch) {
-            const codeBlock = codeBlockMatch[0];
-            const optionRegex = /\?/;
-            if (optionRegex.test(codeBlock)) {
-                return text.replace(codeBlockMatch[0], '<OPTION_SELECTOR/>');
-            }
-        }
-        return text;
-    };
-
-    const parseFrontmatter = (text: string) => {
-        const match = text.match(FRONTMATTER_REGEX);
-        if (!match) return { metadata: null, content: text };
-
-        const frontmatter = match[1];
-        const markdownContent = match[2];
-
-        const iconMatch = frontmatter.match(/icon:\s*(\w+)/);
-        const orderMatch = frontmatter.match(/order:\s*(\d+\.?\d*)/);
-
-        return {
-            content: markdownContent,
-            metadata: {
-                icon: iconMatch ? iconMatch[1] : '',
-                order: orderMatch ? parseFloat(orderMatch[1]) : Infinity,
-            }
-        };
-    };
+    const router = useRouter();
 
     useEffect(() => {
         fetch('/api/docs')
             .then(res => res.json())
             .then(data => {
                 const docTree = (data.tree || []) as DocItem[];
-                setTree(docTree);
-
-                const firstFile = findFirstFile(docTree, (folderPath) => {
-                    setExpandedFolders(prev => new Set(prev).add(folderPath));
-                });
+                const firstFile = findFirstFile(docTree);
 
                 if (firstFile) {
-                    setSelectedFile(firstFile);
+                    router.replace(`/docs/${firstFile}`);
+                } else {
+                    router.replace('/');
                 }
             })
-            .catch(err => console.error('Failed to fetch docs:', err));
-    }, []);
+            .catch(err => {
+                console.error('Failed to fetch docs:', err);
+                router.replace('/');
+            });
+    }, [router]);
 
-    useEffect(() => {
-        if (!selectedFile) return;
-
-        fetch(`/docs/${selectedFile}.md`)
-            .then(res => res.text())
-            .then(text => {
-                const { content: markdownContent } = parseFrontmatter(text);
-                const processedContent = parseOptions(markdownContent);
-                setOriginalContent(markdownContent);
-                setContent(processedContent);
-            })
-            .catch(err => console.error('Failed to fetch content:', err));
-    }, [selectedFile]);
-
-    const handleToggleFolder = (path: string) => {
-        setExpandedFolders(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(path)) {
-                newSet.delete(path);
-            } else {
-                newSet.add(path);
-            }
-            return newSet;
-        });
-    };
-
-    return (
-        <>
-            <Navbar />
-            <div className="h-full flex flex-col">
-                <div className="pt-10 px-3">
-                    <div className="space-y-4 flex gap-5">
-                        {/* Sidebar */}
-                        <DocsTree
-                            tree={tree}
-                            selectedFile={selectedFile}
-                            expandedFolders={expandedFolders}
-                            onSelectFile={setSelectedFile}
-                            onToggleFolder={handleToggleFolder}
-                        />
-
-                        {/* Content */}
-                        <div className="flex-1 prose dark:prose-invert max-w-none">
-                            {content.includes('<OPTION_SELECTOR/>') ? (
-                                <>
-                                    {content.split('<OPTION_SELECTOR/>').map((part, idx) => (
-                                        <div key={idx}>
-                                            <ReactMarkdown 
-                                                components={{
-                                                    code: CodeBlock,
-                                                    a: MarkdownLink,
-                                                }}
-                                                remarkPlugins={[remarkGfm]}
-                                                rehypePlugins={[rehypeRaw]}
-                                            >
-                                                {part}
-                                            </ReactMarkdown>
-                                            {idx < content.split('<OPTION_SELECTOR/>').length - 1 && (
-                                                <OptionSelector content={originalContent} />
-                                            )}
-                                        </div>
-                                    ))}
-                                </>
-                            ) : (
-                                <ReactMarkdown 
-                                    components={{
-                                        code: CodeBlock,
-                                        a: MarkdownLink,
-                                    }}
-                                    remarkPlugins={[remarkGfm]}
-                                    rehypePlugins={[rehypeRaw]}
-                                >
-                                    {content}
-                                </ReactMarkdown>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+    return null;
 }
