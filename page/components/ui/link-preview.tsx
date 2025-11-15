@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 
 import { cn } from "@/lib/utils";
+import { Spinner } from "./spinner";
 
 type LinkPreviewProps = {
   children: React.ReactNode;
@@ -48,6 +49,8 @@ export const LinkPreview = ({
       "viewport.deviceScaleFactor": 1,
       "viewport.width": width * 6,
       "viewport.height": height * 6,
+      "waitUntil": "networkidle2",
+      "timeout": 10000,
     });
     src = `https://api.microlink.io/?${params}`;
   } else {
@@ -58,9 +61,17 @@ export const LinkPreview = ({
 
   const [isMounted, setIsMounted] = React.useState(false);
 
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      setImageLoaded(false);
+    }
+  }, [isOpen]);
 
   const springConfig = { stiffness: 100, damping: 15 };
   const x = useMotionValue(0);
@@ -136,12 +147,22 @@ export const LinkPreview = ({
                     className="block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800"
                     style={{ fontSize: 0 }}
                   >
+                    {!imageLoaded && (
+                      <div
+                        className="flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 rounded-lg"
+                        style={{ width: width, height: height }}
+                      >
+                        <Spinner className="size-6" />
+                      </div>
+                    )}
                     <img
                       src={isStatic ? imageSrc : src}
                       width={width}
                       height={height}
                       className="rounded-lg"
                       alt="preview image"
+                      onLoad={() => setImageLoaded(true)}
+                      style={{ display: imageLoaded ? 'block' : 'none' }}
                     />
                   </a>
                 </motion.div>
