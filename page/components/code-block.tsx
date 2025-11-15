@@ -14,16 +14,30 @@ interface CodeBlockProps {
 export function CodeBlock({ inline, className, children }: CodeBlockProps) {
     const [copied, setCopied] = useState(false);
     const [highlightedCode, setHighlightedCode] = useState<string>('');
+    const [isDark, setIsDark] = useState(false);
     const code = String(children).replace(/\n$/, '');
     const isMultiLine = code.includes('\n');
     const language = className?.replace('language-', '') || 'text';
     const isInlineCode = inline || (!isMultiLine && !className?.startsWith('language-'));
 
     useEffect(() => {
+        setIsDark(document.documentElement.classList.contains('dark'));
+        
+        const observer = new MutationObserver(() => {
+            setIsDark(document.documentElement.classList.contains('dark'));
+        });
+        
+        observer.observe(document.documentElement, { attributes: true });
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
         if (isMultiLine && !isInlineCode) {
+            const shikiTheme = isDark ? 'github-dark' : 'github-light';
+            
             codeToHtml(code, {
                 lang: language,
-                theme: 'github-dark',
+                theme: shikiTheme,
             }).then((html) => {
                 const cleaned = html
                     .replace(/<pre[^>]*>/g, '')
@@ -33,7 +47,7 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
                 setHighlightedCode(cleaned);
             }).catch(() => setHighlightedCode(''));
         }
-    }, [code, language, isMultiLine, isInlineCode]);
+    }, [code, language, isMultiLine, isInlineCode, isDark]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(code);
