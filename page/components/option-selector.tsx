@@ -12,6 +12,7 @@ interface Option {
 export function OptionSelector({ content }: { content: string }) {
   const [selected, setSelected] = useState<string>('');
   const [options, setOptions] = useState<Option[]>([]);
+  const [language, setLanguage] = useState<string>('');
 
   useEffect(() => {
     const codeBlockMatch = content.match(/```[\s\S]*?```/);
@@ -23,6 +24,12 @@ export function OptionSelector({ content }: { content: string }) {
     const codeBlock = codeBlockMatch[0];
     const lines = codeBlock.split('\n');
     const parsed: Option[] = [];
+    
+    const firstLine = lines[0];
+    const langMatch = firstLine.match(/```(\w+)/);
+    if (langMatch) {
+      setLanguage(langMatch[1]);
+    }
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
@@ -55,9 +62,10 @@ export function OptionSelector({ content }: { content: string }) {
   }, [content]);
 
   const selectedOption = options.find(o => o.id === selected);
+  const codeBlockClassName = language ? `language-${language}` : '';
 
   if (options.length < 2) {
-    return selectedOption ? <CodeBlock>{selectedOption.content}</CodeBlock> : null;
+    return selectedOption ? <CodeBlock className={codeBlockClassName}>{selectedOption.content}</CodeBlock> : null;
   }
 
   return (
@@ -76,7 +84,7 @@ export function OptionSelector({ content }: { content: string }) {
       </div>
       {selectedOption && (
         <div className="text-base">
-          <CodeBlock>{selectedOption.content}</CodeBlock>
+          <CodeBlock className={codeBlockClassName}>{selectedOption.content}</CodeBlock>
         </div>
       )}
     </div>

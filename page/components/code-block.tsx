@@ -17,9 +17,10 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
     const code = String(children).replace(/\n$/, '');
     const isMultiLine = code.includes('\n');
     const language = className?.replace('language-', '') || 'text';
+    const isInlineCode = inline || (!isMultiLine && !className?.startsWith('language-'));
 
     useEffect(() => {
-        if (isMultiLine) {
+        if (isMultiLine && !isInlineCode) {
             codeToHtml(code, {
                 lang: language,
                 theme: 'github-dark',
@@ -32,7 +33,7 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
                 setHighlightedCode(cleaned);
             }).catch(() => setHighlightedCode(''));
         }
-    }, [code, language, isMultiLine]);
+    }, [code, language, isMultiLine, isInlineCode]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(code);
@@ -40,7 +41,7 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
         setTimeout(() => setCopied(false), 2000);
     };
 
-    if (inline) {
+    if (isInlineCode) {
         return <code className={className}>{children}</code>;
     }
 
