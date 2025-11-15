@@ -17,7 +17,7 @@ Represents a grading system with its configuration and grade mappings.
 | `passing_percent` | `number` | - | Minimum percentage to pass |
 | `satisfactory_percent` | `number` | - | Minimum percentage for satisfactory grade |
 | `info` | `string` | - | Additional information about the system |
-| `mappings` | [`Mapping[]`](./Mappings.md) | ✓ | Grade to percentage mappings |
+| `mappings` | [`Mapping[]`](./Mappings) | ✓ | Grade to percentage mappings |
 
 ## Example
 
