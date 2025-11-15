@@ -2,8 +2,6 @@ declare module 'edusync-acadion' {
   export interface Mapping {
     grade: number | string;
     percent?: number;
-    min_percent?: number;
-    max_percent?: number;
     description?: string;
   }
   export interface GradeSystem {
