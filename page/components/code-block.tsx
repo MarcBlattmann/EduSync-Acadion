@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Copy, Check } from 'lucide-react';
+import { codeToHtml } from 'shiki';
 
 interface CodeBlockProps {
     inline?: boolean;
@@ -12,8 +13,26 @@ interface CodeBlockProps {
 
 export function CodeBlock({ inline, className, children }: CodeBlockProps) {
     const [copied, setCopied] = useState(false);
+    const [highlightedCode, setHighlightedCode] = useState<string>('');
     const code = String(children).replace(/\n$/, '');
     const isMultiLine = code.includes('\n');
+    const language = className?.replace('language-', '') || 'text';
+
+    useEffect(() => {
+        if (isMultiLine) {
+            codeToHtml(code, {
+                lang: language,
+                theme: 'github-dark',
+            }).then((html) => {
+                const cleaned = html
+                    .replace(/<pre[^>]*>/g, '')
+                    .replace(/<\/pre>/g, '')
+                    .replace(/<code[^>]*>/g, '')
+                    .replace(/<\/code>/g, '');
+                setHighlightedCode(cleaned);
+            }).catch(() => setHighlightedCode(''));
+        }
+    }, [code, language, isMultiLine]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(code);
@@ -28,9 +47,18 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
     if (isMultiLine) {
         return (
             <div className="relative group w-full">
-                <pre className={`${className} py-3 px-4 m-0! leading-none overflow-x-auto overflow-y-hidden`}>
-                    <code className="leading-none">{code}</code>
-                </pre>
+                {highlightedCode ? (
+                    <pre className="py-3 px-4 m-0 leading-none overflow-x-auto overflow-y-hidden">
+                        <code 
+                            className="leading-none"
+                            dangerouslySetInnerHTML={{ __html: highlightedCode }}
+                        />
+                    </pre>
+                ) : (
+                    <pre className={`${className} py-3 px-4 m-0! leading-none overflow-x-auto overflow-y-hidden`}>
+                        <code className="leading-none">{code}</code>
+                    </pre>
+                )}
                 <Button
                     onClick={handleCopy}
                     size="icon"
@@ -50,9 +78,18 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
 
     return (
         <div className="relative group w-full">
-            <pre className={`${className} py-3 px-4 m-0! leading-none overflow-x-auto overflow-y-hidden`}>
-                <code className="leading-none">{code}</code>
-            </pre>
+            {highlightedCode ? (
+                <pre className="py-3 px-4 m-0 leading-none overflow-x-auto overflow-y-hidden">
+                    <code 
+                        className="leading-none"
+                        dangerouslySetInnerHTML={{ __html: highlightedCode }}
+                    />
+                </pre>
+            ) : (
+                <pre className={`${className} py-3 px-4 m-0! leading-none overflow-x-auto overflow-y-hidden`}>
+                    <code className="leading-none">{code}</code>
+                </pre>
+            )}
             <Button
                 onClick={handleCopy}
                 size="icon"
