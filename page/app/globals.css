@@ -235,15 +235,29 @@
 
   .prose table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-bottom: 0.75rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--color-muted);
   }
 
   .prose th,
   .prose td {
-    border: 1px solid var(--color-border);
     padding: 0.5rem 0.75rem;
     text-align: left;
+    border-right: 1px solid var(--color-muted);
+    border-bottom: 1px solid var(--color-muted);
+  }
+  
+  .prose th:last-child,
+  .prose td:last-child {
+    border-right: none;
+  }
+  
+  .prose tbody tr:last-child td {
+    border-bottom: none;
   }
 
   .prose th {
