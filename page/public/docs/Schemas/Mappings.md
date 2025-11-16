@@ -2,7 +2,7 @@
 icon: TableColumnsSplit
 ---
 
-# Mapping
+# Mappings
 
 Defines how a grade maps to percentage ranges and descriptions.
 
