@@ -9,3 +9,11 @@ icon: Book
 | [`GradeSystem`](/docs/Schemas/GradeSystem) | string (info as markdown) |
 
 This method allows you to retrieve detailed information about a grading system as Markdown. It returns the same data displayed in the Systems Explorer (The text in the middle) when you search for a system in the [Systems explorer](/systems).
+
+## Usage
+```typescript
+import { getSystemInfo, getSystemById } from 'edusync-acadion';
+
+const gradeSystem = getSystemById(1);
+const info = getSystemInfo(gradeSystem);
+```
