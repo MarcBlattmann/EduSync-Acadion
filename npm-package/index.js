@@ -43,7 +43,7 @@ function getSystemByName(name) {
  * @param {number} gradeNum 
  * @returns {number} The corresponding percentage or throws an error if not found.
  */
-function _numericGradeToPercent(mappings, gradeNum) {
+function numericGradeToPercent(mappings, gradeNum) {
   const numericMappings = mappings
     .filter(m => typeof m.grade === 'number' && !Number.isNaN(m.grade))
     .slice()
@@ -87,7 +87,7 @@ function convertToPercent(system, grade) {
   if (!system) throw new Error('System not found');
 
   if (typeof grade === 'number' && !Number.isNaN(grade)) {
-    return _numericGradeToPercent(system.mappings, grade);
+    return numericGradeToPercent(system.mappings, grade);
   }
 
   if (typeof grade === 'string') {
@@ -100,7 +100,7 @@ function convertToPercent(system, grade) {
     if (byDesc) return byDesc.percent;
 
     const num = parseFloat(grade);
-    if (!Number.isNaN(num)) return _numericGradeToPercent(system.mappings, num);
+    if (!Number.isNaN(num)) return numericGradeToPercent(system.mappings, num);
 
     throw new Error('Grade not found in system mappings');
   }
@@ -123,6 +123,34 @@ function getColor(system, grade) {
 }
 
 /**
+ * Find the closest mapping entry to a given percentage.
+ * @private
+ */
+function findClosestByPercent(mappings, percent) {
+  let closest = mappings[0];
+  for (const mapping of mappings) {
+    if (Math.abs(mapping.percent - percent) < Math.abs(closest.percent - percent)) {
+      closest = mapping;
+    }
+  }
+  return closest;
+}
+
+/**
+ * Find the closest mapping entry to a given numeric grade.
+ * @private
+ */
+function findClosestByGrade(mappings, grade) {
+  let closest = mappings[0];
+  for (const mapping of mappings) {
+    if (typeof mapping.grade === 'number' && Math.abs(mapping.grade - grade) < Math.abs((closest.grade || 0) - grade)) {
+      closest = mapping;
+    }
+  }
+  return closest;
+}
+
+/**
  * Get the description of a grade within a specific Grade-system.
  * @param { Object } system - The Grade-system object
  * @param { number|string } grade - numeric or string grade
@@ -131,36 +159,37 @@ function getColor(system, grade) {
  * getGradeDescription(system, 5); // returns "Good"
  */
 function getGradeDescription(system, grade) {
-  if (!system) return null;
+  if (!system) {
+    return null;
+  }
 
   if (typeof grade === 'string') {
     const lower = grade.trim().toLowerCase();
+    
     const byGradeField = system.mappings.find(m => String(m.grade).toLowerCase() === lower);
-    if (byGradeField) return byGradeField.description || null;
+    if (byGradeField) {
+      return byGradeField.description || null;
+    }
     const byDesc = system.mappings.find(m => m.description && m.description.toLowerCase() === lower);
-    if (byDesc) return byDesc.description || null;
+    if (byDesc) {
+      return byDesc.description || null;
+    }
+    
     const num = parseFloat(grade);
-    if (!Number.isNaN(num)) grade = num;
-    else return null;
+    if (Number.isNaN(num)) {
+      return null;
+    }
+    
+    grade = num;
   }
 
   if (typeof grade === 'number' && !Number.isNaN(grade)) {
     try {
       const percent = convertToPercent(system, grade);
-      let closest = system.mappings[0];
-      for (const m of system.mappings) {
-        if (Math.abs(m.percent - percent) < Math.abs(closest.percent - percent)) {
-          closest = m;
-        }
-      }
+      const closest = findClosestByPercent(system.mappings, percent);
       return closest.description || null;
     } catch (e) {
-      let closest = system.mappings[0];
-      for (const m of system.mappings) {
-        if (typeof m.grade === 'number' && Math.abs(m.grade - grade) < Math.abs((closest.grade || 0) - grade)) {
-          closest = m;
-        }
-      }
+      const closest = findClosestByGrade(system.mappings, grade);
       return closest.description || null;
     }
   }
