@@ -179,7 +179,7 @@ function getGradeDescription(system, grade) {
     if (Number.isNaN(num)) {
       return null;
     }
-    
+
     grade = num;
   }
 
@@ -208,30 +208,41 @@ function getGradeDescription(system, grade) {
 function percentToGrade(system, percent) {
   if (!system) throw new Error('System not found');
 
-  const p = Math.max(0, Math.min(100, percent));
+  const clampedPercent = Math.max(0, Math.min(100, percent));
 
-  const numeric = system.mappings.filter(m => typeof m.grade === 'number' && !Number.isNaN(m.grade)).slice().sort((a, b) => a.percent - b.percent);
-  if (numeric.length >= 2) {
-    if (p <= numeric[0].percent) return numeric[0].grade;
-    if (p >= numeric[numeric.length - 1].percent) return numeric[numeric.length - 1].grade;
+  const numericMappings = system.mappings
+    .filter(m => typeof m.grade === 'number' && !Number.isNaN(m.grade))
+    .slice()
+    .sort((a, b) => a.percent - b.percent);
 
-    for (let i = 0; i < numeric.length - 1; i++) {
-      const a = numeric[i];
-      const b = numeric[i + 1];
-      if (p >= a.percent && p <= b.percent) {
-        const t = (p - a.percent) / (b.percent - a.percent);
-        return a.grade + t * (b.grade - a.grade);
+  if (numericMappings.length >= 2) {
+    if (clampedPercent <= numericMappings[0].percent) {
+      return numericMappings[0].grade;
+    }
+    if (clampedPercent >= numericMappings[numericMappings.length - 1].percent) {
+      return numericMappings[numericMappings.length - 1].grade;
+    }
+
+    for (let i = 0; i < numericMappings.length - 1; i++) {
+      const lowerBound = numericMappings[i];
+      const upperBound = numericMappings[i + 1];
+
+      if (clampedPercent >= lowerBound.percent && clampedPercent <= upperBound.percent) {
+        const interpolationFactor = (clampedPercent - lowerBound.percent) / 
+                                    (upperBound.percent - lowerBound.percent);
+        
+        return lowerBound.grade + interpolationFactor * (upperBound.grade - lowerBound.grade);
       }
     }
   }
 
-  let closest = system.mappings[0];
-  for (const m of system.mappings) {
-    if (Math.abs(m.percent - p) < Math.abs(closest.percent - p)) {
-      closest = m;
+  let closestMapping = system.mappings[0];
+  for (const mapping of system.mappings) {
+    if (Math.abs(mapping.percent - clampedPercent) < Math.abs(closestMapping.percent - clampedPercent)) {
+      closestMapping = mapping;
     }
   }
-  return closest.grade;
+  return closestMapping.grade;
 }
 
 /**
