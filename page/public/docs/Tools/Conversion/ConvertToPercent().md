@@ -1,0 +1,5 @@
+---
+icon: Shrink
+---
+
+# ConvertToPrecent()
