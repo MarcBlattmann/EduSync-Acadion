@@ -32,7 +32,7 @@ export default function DocPage() {
 
                 const slug = params.slug as string[];
                 if (slug && slug.length > 0) {
-                    const filePath = slug.join('/');
+                    const filePath = slug.map(s => decodeURIComponent(s)).join('/');
                     setSelectedFile(filePath);
                     
                     const expandFolders = (items: DocItem[], targetPath: string) => {
@@ -79,7 +79,8 @@ export default function DocPage() {
 
     const handleSelectFile = (path: string) => {
         setSelectedFile(path);
-        router.push(`/docs/${path}`);
+        const encodedPath = path.split('/').map(segment => encodeURIComponent(segment)).join('/');
+        router.push(`/docs/${encodedPath}`);
     };
 
     return (
