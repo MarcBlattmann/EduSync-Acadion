@@ -26,7 +26,7 @@ export default function Navbar() {
             />
             <h1>EduSync Acadion</h1>
           </a>
-          <NavigationMenu className="ml-3">
+          <NavigationMenu className="ml-3 hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className="cursor-pointer">
@@ -45,7 +45,7 @@ export default function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 hidden md:flex">
           <ThemeToggle />
           <a href="https://github.com/MarcBlattmann/EduSync-Acadion" target="_blank">
             <Button variant="ghost" className="cursor-pointer h-10 w-10" size="icon">
