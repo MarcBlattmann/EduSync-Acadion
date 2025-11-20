@@ -10,6 +10,9 @@ export default function MainLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script src="/theme-init.js" />
+      </head>
       <body>
         <ThemeProvider>
           <Navbar />
