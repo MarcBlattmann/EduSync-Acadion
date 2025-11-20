@@ -13,7 +13,7 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="flex bg-background h-15 px-5 text-1xl justify-between font-medium items-center fixed top-0 w-full max-w-360 left-1/2 -translate-x-1/2">
+      <div className="flex bg-background h-15 px-5 text-1xl justify-between font-medium items-center fixed top-0 w-full max-w-360 left-1/2 -translate-x-1/2 z-50">
         <div className="flex gap-3 text-2xl font-bold items-center">
           <a href="/" className="flex gap-3">
             <Image
