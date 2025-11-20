@@ -1,11 +1,17 @@
+"use client"
+
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link"
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
-import { Github } from "lucide-react";
+import { Github, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
+import { useState } from "react";
 
 export default function Navbar() {
+    const [open, setOpen] = useState(false);
+
     return (
       <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
         <div className="flex gap-3 text-2xl font-bold w-full items-center">
@@ -45,7 +51,7 @@ export default function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="flex items-center gap-2 hidden md:flex">
+        <div className="items-center gap-2 hidden md:flex">
           <ThemeToggle />
           <a href="https://github.com/MarcBlattmann/EduSync-Acadion" target="_blank">
             <Button variant="ghost" className="cursor-pointer h-10 w-10" size="icon">
@@ -53,6 +59,50 @@ export default function Navbar() {
             </Button>
           </a>
         </div>
+        <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" className="cursor-pointer h-10 w-10" size="icon">
+                <Menu />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full data-[state=open]:animate-none data-[state=closed]:animate-none p-0">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <div className="flex h-15 px-5 justify-between items-center">
+                <a href="/" className="flex gap-3" onClick={() => setOpen(false)}>
+                  <Image
+                    src="/black-logo.svg"
+                    alt="EduSync Logo dark"
+                    width={30}
+                    height={20}
+                    className="block dark:hidden"
+                  />
+                  <Image
+                    src="/white-logo.svg"
+                    alt="EduSync Logo light"
+                    width={30}
+                    height={20}
+                    className="hidden dark:block"
+                  />
+                </a>
+              </div>
+              <div className="flex flex-col gap-4 mt-2 px-2">
+                <Link 
+                  href="/systems"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold px-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded"
+                >
+                  Systems
+                </Link>
+                <Link 
+                  href="/docs"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold px-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded"
+                >
+                  Docs
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
       </div>
     )
 }
