@@ -7,7 +7,7 @@ import { Github } from "lucide-react";
 
 export default function Navbar() {
     return (
-        <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
+      <div className="flex h-15 px-5 text-1xl justify-between font-medium w-full items-center">
         <div className="flex gap-3 text-2xl font-bold w-full items-center">
           <a href="/" className="flex gap-3">
             <Image
