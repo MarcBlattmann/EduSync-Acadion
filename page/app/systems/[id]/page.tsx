@@ -39,12 +39,14 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                     </div>
 
                     {selectedSystem && (
-                        <div className="space-y-4 flex gap-5">
-                            <GradeMappingsTable system={selectedSystem} />
-                            <div className="flex-1 prose">
+                        <div className="flex flex-col md:flex-row gap-5">
+                            <div className="flex flex-col gap-5 w-full md:w-auto order-2 md:order-1">
+                                <GradeMappingsTable system={selectedSystem} />
+                            </div>
+                            <div className="hidden md:flex flex-col prose flex-1 order-2">
                                 <ReactMarkdown>{selectedSystem.info}</ReactMarkdown>
                             </div>
-                            <div className="w-1/6 flex flex-col gap-3">
+                            <div className="w-full md:w-1/6 flex flex-col gap-3 order-1 md:order-3">
                                 <div className="dark:bg-[#171717] bg-[#fafafa] h-fit py-2 px-3 rounded-lg dark:border-0 border">
                                     <div className="font-medium">ID : {selectedSystem.id}</div>
                                 </div>
@@ -71,6 +73,9 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
                                         </div>
                                     </div>
                                 )}
+                            </div>
+                            <div className="md:hidden prose w-full order-4">
+                                <ReactMarkdown>{selectedSystem.info}</ReactMarkdown>
                             </div>
                         </div>
                     )}

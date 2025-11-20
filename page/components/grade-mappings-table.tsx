@@ -24,7 +24,7 @@ export default function GradeMappingsTable({ system }: GradeMappingsTableProps) 
   }
 
   return (
-    <div className="w-fit rounded-md overflow-hidden dark:border-0 border [&_table]:rounded-md [&_tr:last-child_td:first-child]:rounded-bl-md [&_tr:last-child_td:last-child]:rounded-br-md [&_tr:first-child_th:first-child]:rounded-tl-md [&_tr:first-child_th:last-child]:rounded-tr-md">
+    <div className="w-full md:w-fit rounded-md overflow-hidden dark:border-0 border [&_table]:rounded-md [&_tr:last-child_td:first-child]:rounded-bl-md [&_tr:last-child_td:last-child]:rounded-br-md [&_tr:first-child_th:first-child]:rounded-tl-md [&_tr:first-child_th:last-child]:rounded-tr-md">
       <Table className='dark:bg-[#171717] bg-[#fafafa]'>
         <TableHeader>
           <TableRow>
