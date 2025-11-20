@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useState } from "react";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
     try {
@@ -20,10 +20,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
     setMounted(true);
   }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return <>{children}</>;
 }

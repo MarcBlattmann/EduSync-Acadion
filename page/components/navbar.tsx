@@ -18,17 +18,19 @@ export default function Navbar() {
           <a href="/" className="flex gap-3">
             <Image
               src="/black-logo.svg"
-              alt="EduSync Logo dark"
+              alt="EduSync Logo"
               width={30}
               height={20}
-              className="block dark:hidden"
+              className="block dark:hidden will-change-auto"
+              priority
             />
             <Image
               src="/white-logo.svg"
-              alt="EduSync Logo light"
+              alt="EduSync Logo"
               width={30}
               height={20}
-              className="hidden dark:block"
+              className="hidden dark:block will-change-auto"
+              priority
             />
             <h1>EduSync Acadion</h1>
           </a>
@@ -71,17 +73,19 @@ export default function Navbar() {
                 <a href="/" className="flex gap-3" onClick={() => setOpen(false)}>
                   <Image
                     src="/black-logo.svg"
-                    alt="EduSync Logo dark"
+                    alt="EduSync Logo"
                     width={30}
                     height={20}
-                    className="block dark:hidden"
+                    className="block dark:hidden will-change-auto"
+                    priority
                   />
                   <Image
                     src="/white-logo.svg"
-                    alt="EduSync Logo light"
+                    alt="EduSync Logo"
                     width={30}
                     height={20}
-                    className="hidden dark:block"
+                    className="hidden dark:block will-change-auto"
+                    priority
                   />
                 </a>
               </div>
