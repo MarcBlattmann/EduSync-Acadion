@@ -1,5 +1,6 @@
 import { Banner1 } from "@/components/banner1";
 import { ThemeProvider } from "../components/providers";
+import Navbar from "@/components/navbar";
 import "./globals.css";
 
 export default function MainLayout({
@@ -11,6 +12,7 @@ export default function MainLayout({
     <html lang="en">
       <body>
         <ThemeProvider>
+          <Navbar />
           <div className="w-full h-screen flex flex-col items-center">
             <div className="flex-1 mt-15 w-full max-w-360">
               {children}

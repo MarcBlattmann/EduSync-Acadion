@@ -1,6 +1,5 @@
 'use client';
 
-import Navbar from "@/components/navbar";
 import GradeMappingsTable from "@/components/grade-mappings-table";
 import { getAllSystems, getSystemByName, percentToGrade } from 'edusync-acadion';
 import { useState, use } from 'react';
@@ -30,7 +29,6 @@ export default function ConvertPage({ params }: { params: Promise<{ id: string }
 
     return (
         <div className="h-full flex flex-col">
-            <Navbar />
             {selectedSystem ? (
                 <div className="pt-10 px-5">
                     <div className="flex justify-between gap-3 mb-8">

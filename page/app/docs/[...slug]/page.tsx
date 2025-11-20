@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import Navbar from "@/components/navbar"
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -11,6 +10,27 @@ import { MarkdownLink } from '@/components/markdown-link';
 import { DocsTree, DocItem } from '@/components/docs-tree';
 import { OptionSelector } from '@/components/option-selector';
 import { parseOptions, parseFrontmatter } from '@/lib/docs-utils';
+
+let cachedTree: DocItem[] | null = null;
+let treePromise: Promise<DocItem[]> | null = null;
+
+function fetchDocsTree(): Promise<DocItem[]> {
+    if (cachedTree) return Promise.resolve(cachedTree);
+    if (treePromise) return treePromise;
+
+    treePromise = fetch('/api/docs')
+        .then(res => res.json())
+        .then(data => {
+            cachedTree = data.tree || [];
+            return cachedTree as DocItem[];
+        })
+        .catch(err => {
+            console.error('Failed to fetch docs:', err);
+            return [] as DocItem[];
+        });
+
+    return treePromise;
+}
 
 export default function DocPage() {
     const router = useRouter();
@@ -21,13 +41,9 @@ export default function DocPage() {
     const [originalContent, setOriginalContent] = useState<string>('');
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
 
-
-
     useEffect(() => {
-        fetch('/api/docs')
-            .then(res => res.json())
-            .then(data => {
-                const docTree = (data.tree || []) as DocItem[];
+        fetchDocsTree()
+            .then(docTree => {
                 setTree(docTree);
 
                 const slug = params.slug as string[];
@@ -65,7 +81,7 @@ export default function DocPage() {
             .catch(err => console.error('Failed to fetch content:', err));
     }, [selectedFile]);
 
-    const handleToggleFolder = (path: string) => {
+    const handleToggleFolder = useCallback((path: string) => {
         setExpandedFolders(prev => {
             const newSet = new Set(prev);
             if (newSet.has(path)) {
@@ -75,67 +91,71 @@ export default function DocPage() {
             }
             return newSet;
         });
-    };
+    }, []);
 
-    const handleSelectFile = (path: string) => {
+    const handleSelectFile = useCallback((path: string) => {
         setSelectedFile(path);
         const encodedPath = path.split('/').map(segment => encodeURIComponent(segment)).join('/');
         router.push(`/docs/${encodedPath}`);
-    };
+    }, [router]);
+
+    const markdownParts = useMemo(() => {
+        if (!content.includes('<OPTION_SELECTOR/>')) {
+            return null;
+        }
+        return content.split('<OPTION_SELECTOR/>');
+    }, [content]);
 
     return (
-        <>
-            <Navbar />
-            <div className="h-full flex flex-col">
-                <div className="pt-10 px-3">
-                    <div className="space-y-4 flex gap-5">
-                        {/* Sidebar */}
-                        <DocsTree
-                            tree={tree}
-                            selectedFile={selectedFile}
-                            expandedFolders={expandedFolders}
-                            onSelectFile={handleSelectFile}
-                            onToggleFolder={handleToggleFolder}
-                        />
+        <div className="h-full flex flex-col">
+            <div className="pt-10 px-3">
+                <div className="space-y-4 flex gap-5">
+                    {/* Sidebar */}
+                    <DocsTree
+                        tree={tree}
+                        selectedFile={selectedFile}
+                        expandedFolders={expandedFolders}
+                        onSelectFile={handleSelectFile}
+                        onToggleFolder={handleToggleFolder}
+                    />
 
-                        {/* Content */}
-                        <div className="flex-1 prose dark:prose-invert max-w-none">
-                            {content.includes('<OPTION_SELECTOR/>') ? (
-                                <>
-                                    {content.split('<OPTION_SELECTOR/>').map((part, idx) => (
-                                        <div key={idx}>
-                                            <ReactMarkdown 
-                                                components={{
-                                                    code: CodeBlock,
-                                                    a: MarkdownLink,
-                                                }}
-                                                remarkPlugins={[remarkGfm]}
-                                                rehypePlugins={[rehypeRaw]}
-                                            >
-                                                {part}
-                                            </ReactMarkdown>
-                                            {idx < content.split('<OPTION_SELECTOR/>').length - 1 && (
-                                                <OptionSelector content={originalContent} />
-                                            )}
-                                        </div>
-                                    ))}
-                                </>
-                            ) : (
-                                <ReactMarkdown 
-                                    components={{
-                                        code: CodeBlock,
-                                        a: MarkdownLink,
-                                    }}
-                                    remarkPlugins={[remarkGfm]}
-                                    rehypePlugins={[rehypeRaw]}
-                                >
-                                    {content}
-                                </ReactMarkdown>
-                            )}
-                        </div>
+                    {/* Content */}
+                    <div className="flex-1 prose dark:prose-invert max-w-none">
+                        {markdownParts ? (
+                            <>
+                                {markdownParts.map((part, idx) => (
+                                    <div key={idx}>
+                                        <ReactMarkdown 
+                                            components={{
+                                                code: CodeBlock,
+                                                a: MarkdownLink,
+                                            }}
+                                            remarkPlugins={[remarkGfm]}
+                                            rehypePlugins={[rehypeRaw]}
+                                        >
+                                            {part}
+                                        </ReactMarkdown>
+                                        {idx < markdownParts.length - 1 && (
+                                            <OptionSelector content={originalContent} />
+                                        )}
+                                    </div>
+                                ))}
+                            </>
+                        ) : (
+                            <ReactMarkdown 
+                                components={{
+                                    code: CodeBlock,
+                                    a: MarkdownLink,
+                                }}
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                            >
+                                {content}
+                            </ReactMarkdown>
+                        )}
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
