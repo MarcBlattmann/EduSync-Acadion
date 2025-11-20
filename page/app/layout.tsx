@@ -12,7 +12,7 @@ export default function MainLayout({
       <body>
         <ThemeProvider>
           <div className="w-full h-screen flex flex-col items-center">
-            <div className="flex-1 w-full max-w-360">
+            <div className="flex-1 mt-15 w-full max-w-360">
               {children}
             </div>
           </div>
