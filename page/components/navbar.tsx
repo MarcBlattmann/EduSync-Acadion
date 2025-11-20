@@ -104,6 +104,14 @@ export default function Navbar() {
                 >
                   Docs
                 </Link>
+                <a
+                  href="https://github.com/MarcBlattmann/EduSync-Acadion"
+                  target="_blank"
+                  onClick={() => setOpen(false)}
+                  className="text-2xl font-semibold px-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded flex items-center gap-2"
+                >
+                  GitHub
+                </a>
               </div>
             </SheetContent>
           </Sheet>
