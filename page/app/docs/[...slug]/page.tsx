@@ -128,7 +128,7 @@ export default function DocPage() {
                 <h2 className="text-sm font-medium ml-[-5px] truncate flex-1">Documentation</h2>
             </div>
 
-            <div className="pt-10 px-3 flex-1 overflow-hidden">
+            <div className="md:pt-10 pt-5 px-3 flex-1 overflow-hidden">
                 <div className="flex flex-col md:flex-row gap-5 h-full">
                     {/* Sidebar - Hidden on Mobile */}
                     <div className="hidden md:flex">
