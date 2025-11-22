@@ -17,7 +17,7 @@ export default function SystemsPage() {
                     </div>
                 </div>
             </div>
-            <Image src="/Drawing.png" alt="Background Drawing" className="absolute md:block hidden right-0 bottom-0 w-auto min-w-max" style={{height: '700px'}} width={500} height={500} />
+            <Image src="/Drawing.png" alt="Background Drawing" className="absolute md:block hidden right-0 bottom-0 w-auto min-w-max" style={{height: '700px'}} width={4000} height={4000} />
         </div>
     );
 }
