@@ -67,7 +67,7 @@ export function MobileDocsMenuButton({ onClick }: { onClick: () => void }) {
             variant="ghost" 
             size="icon" 
             onClick={onClick}
-            className="md:hidden cursor-pointer"
+            className="md:hidden cursor-pointer p-0"
         >
             <Menu className="ml-[-5px] h-5 w-2" />
         </Button>

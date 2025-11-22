@@ -93,14 +93,14 @@ export default function Navbar() {
                 <Link 
                   href="/systems"
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-semibold px-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded"
+                  className="text-2xl font-semibold px-3 rounded"
                 >
                   Systems
                 </Link>
                 <Link 
                   href="/docs"
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-semibold px-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded"
+                  className="text-2xl font-semibold px-3 rounded"
                 >
                   Docs
                 </Link>
@@ -108,7 +108,7 @@ export default function Navbar() {
                   href="https://github.com/MarcBlattmann/EduSync-Acadion"
                   target="_blank"
                   onClick={() => setOpen(false)}
-                  className="text-2xl font-semibold px-3 hover:bg-gray-100 dark:hover:bg-gray-900 rounded flex items-center gap-2"
+                  className="text-2xl font-semibold px-3 rounded flex items-center gap-2"
                 >
                   GitHub
                 </a>

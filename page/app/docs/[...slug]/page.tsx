@@ -123,7 +123,7 @@ export default function DocPage() {
             />
 
             {/* Mobile Navigation Bar */}
-            <div className="md:hidden flex items-center gap-2 fixed  top-13 bg-background w-full px-3 border-b">
+            <div className="md:hidden flex items-center gap-2 fixed top-13 bg-background w-full px-3 border-b">
                 <MobileDocsMenuButton onClick={() => setMobileNavOpen(true)} />
                 <h2 className="text-sm font-medium ml-[-5px] truncate flex-1">Documentation</h2>
             </div>
