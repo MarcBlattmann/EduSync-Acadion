@@ -140,7 +140,7 @@ const DocTreeItem = ({
     const isSelected = selectedFile === item.path;
 
     return (
-        <div key={item.path} className='mt-1'>
+        <div key={item.path} className='mt-1 w-80'>
             {isFolder ? (
                 <>
                     <FolderItem
@@ -197,7 +197,7 @@ export const DocsTree = ({
     onToggleFolder,
 }: DocsTreeProps) => {
     return (
-        <div className="w-1/4 flex flex-col">
+        <div className="w-full md:w-1/4 flex flex-col">
             {tree.map(item => (
                 <DocTreeItem
                     key={item.path}

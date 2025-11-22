@@ -9,6 +9,7 @@ import { CodeBlock } from '@/components/code-block';
 import { MarkdownLink } from '@/components/markdown-link';
 import { DocsTree, DocItem } from '@/components/docs-tree';
 import { OptionSelector } from '@/components/option-selector';
+import { MobileDocsNavbar, MobileDocsMenuButton } from '@/components/mobile-docs-navbar';
 import { parseOptions, parseFrontmatter } from '@/lib/docs-utils';
 
 let cachedTree: DocItem[] | null = null;
@@ -40,6 +41,7 @@ export default function DocPage() {
     const [content, setContent] = useState<string>('');
     const [originalContent, setOriginalContent] = useState<string>('');
     const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
+    const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
     useEffect(() => {
         fetchDocsTree()
@@ -106,21 +108,41 @@ export default function DocPage() {
         return content.split('<OPTION_SELECTOR/>');
     }, [content]);
 
+
     return (
         <div className="h-full flex flex-col">
-            <div className="pt-10 px-3">
-                <div className="space-y-4 flex gap-5">
-                    {/* Sidebar */}
-                    <DocsTree
-                        tree={tree}
-                        selectedFile={selectedFile}
-                        expandedFolders={expandedFolders}
-                        onSelectFile={handleSelectFile}
-                        onToggleFolder={handleToggleFolder}
-                    />
+            {/* Mobile Navigation Overlay */}
+            <MobileDocsNavbar
+                tree={tree}
+                selectedFile={selectedFile}
+                expandedFolders={expandedFolders}
+                onSelectFile={handleSelectFile}
+                onToggleFolder={handleToggleFolder}
+                onClose={() => setMobileNavOpen(false)}
+                isOpen={mobileNavOpen}
+            />
+
+            {/* Mobile Navigation Bar */}
+            <div className="md:hidden flex items-center gap-2 -mt-2 px-3 border-b">
+                <MobileDocsMenuButton onClick={() => setMobileNavOpen(true)} />
+                <h2 className="text-sm font-medium ml-[-5px] truncate flex-1">Documentation</h2>
+            </div>
+
+            <div className="pt-10 px-3 flex-1 overflow-hidden">
+                <div className="flex flex-col md:flex-row gap-5 h-full">
+                    {/* Sidebar - Hidden on Mobile */}
+                    <div className="hidden md:flex">
+                        <DocsTree
+                            tree={tree}
+                            selectedFile={selectedFile}
+                            expandedFolders={expandedFolders}
+                            onSelectFile={handleSelectFile}
+                            onToggleFolder={handleToggleFolder}
+                        />
+                    </div>
 
                     {/* Content */}
-                    <div className="flex-1 prose dark:prose-invert max-w-none">
+                    <div className="flex-1 prose mx-3 dark:prose-invert max-w-none overflow-y-auto">
                         {markdownParts ? (
                             <>
                                 {markdownParts.map((part, idx) => (
