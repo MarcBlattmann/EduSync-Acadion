@@ -123,12 +123,12 @@ export default function DocPage() {
             />
 
             {/* Mobile Navigation Bar */}
-            <div className="md:hidden flex items-center gap-2 -mt-2 px-3 border-b">
+            <div className="md:hidden flex items-center gap-2 fixed  top-13 bg-background w-full px-3 border-b">
                 <MobileDocsMenuButton onClick={() => setMobileNavOpen(true)} />
                 <h2 className="text-sm font-medium ml-[-5px] truncate flex-1">Documentation</h2>
             </div>
 
-            <div className="md:pt-10 pt-5 px-3 flex-1 overflow-hidden">
+            <div className="pt-5 px-3 flex-1 overflow-hidden md:mt-0 mt-8">
                 <div className="flex flex-col md:flex-row gap-5 h-full">
                     {/* Sidebar - Hidden on Mobile */}
                     <div className="hidden md:flex">
