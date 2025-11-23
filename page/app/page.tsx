@@ -15,9 +15,15 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <div className="prose dark:prose-invert max-w-none px-5">
+      <div className="prose dark:prose-invert max-w-none px-5 mt-15">
         <CodeBlock className="language-javascript">
-          {`import { percentToGrade, getSystemByName } from 'edusync-acadion';`}
+          {`import { convertGradeToGrade, getSystemById } from 'edusync-acadion';
+
+const swissSystem = getSystemById(1);
+const germanSystem = getSystemById(2);
+
+const SwissGrade = 5.5;
+const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`}
         </CodeBlock>
       </div>
     </div>
