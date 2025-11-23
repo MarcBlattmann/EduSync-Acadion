@@ -32,7 +32,7 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
     }, []);
 
     useEffect(() => {
-        if (isMultiLine && !isInlineCode) {
+        if (!isInlineCode && language !== 'text') {
             const shikiTheme = isDark ? 'github-dark' : 'github-light';
             
             codeToHtml(code, {
@@ -47,7 +47,7 @@ export function CodeBlock({ inline, className, children }: CodeBlockProps) {
                 setHighlightedCode(cleaned);
             }).catch(() => setHighlightedCode(''));
         }
-    }, [code, language, isMultiLine, isInlineCode, isDark]);
+    }, [code, language, isInlineCode, isDark]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(code);

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/code-block";
+import { Code } from "lucide-react";
 
 export default function Home() {
   return (
@@ -13,6 +14,11 @@ export default function Home() {
             <a href="/docs/Welcome">Get Started</a>
           </Button>
         </div>
+      </div>
+      <div className="prose dark:prose-invert max-w-none px-5">
+        <CodeBlock className="language-javascript">
+          {`import { percentToGrade, getSystemByName } from 'edusync-acadion';`}
+        </CodeBlock>
       </div>
     </div>
   );
