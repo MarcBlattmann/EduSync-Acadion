@@ -5,27 +5,32 @@ import { Code } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="w-full">
-      <div className="flex justify-between items-center mt-10">
-        <div className="flex flex-col gap-1 justify-center px-5 w-full">
-          <h1 className="text-6xl font-bold">Make working with grades easy</h1>
-          <h2 className="text-2xl">Universal grade conversion and analysis toolkit for international education systems.</h2>
-          <Button size="lg" className="w-40 mt-5 cursor-pointer" asChild>
-            <a href="/docs/Welcome">Get Started</a>
-          </Button>
+    <>
+      <div className="w-full min-h-[calc(100vh-280px)] flex justify-center flex-col">
+        <div className="flex w-full justify-center items-center mt-10">
+          <div className="flex flex-col gap-1 justify-center px-5 w-full">
+            <h1 className="text-6xl font-bold">Make working with grades easy</h1>
+            <h2 className="text-2xl w-2/3">A comprehensive set of tools for managing grades, convert values, verify passing status, and perform many other grade-related tasks.</h2>
+            <Button size="lg" className="w-40 mt-5 cursor-pointer" asChild>
+              <a href="/docs/Welcome">Get Started</a>
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className="prose dark:prose-invert max-w-none px-5 mt-15">
-        <CodeBlock className="language-javascript">
-          {`import { convertGradeToGrade, getSystemById } from 'edusync-acadion';
+        <div className="prose w-full dark:prose-invert max-w-none px-5 mt-15">
+          <CodeBlock className="language-javascript">
+            {`import { convertGradeToGrade, getSystemById } from 'edusync-acadion';
 
 const swissSystem = getSystemById(1);
 const germanSystem = getSystemById(2);
 
 const SwissGrade = 5.5;
 const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`}
-        </CodeBlock>
+          </CodeBlock>
+        </div>
       </div>
-    </div>
+      <div className="ml-5 mt-20">
+        <h1 className="text-2xl font-medium">All you need</h1>
+      </div>
+    </>
   );
 }
