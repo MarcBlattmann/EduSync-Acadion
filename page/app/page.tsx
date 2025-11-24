@@ -6,7 +6,7 @@ import { Code } from "lucide-react";
 export default function Home() {
   return (
     <>
-      <div className="w-full min-h-[calc(100vh-280px)] flex justify-center flex-col">
+      <div className="w-full flex justify-center flex-col">
         <div className="flex w-full justify-center items-center mt-10">
           <div className="flex flex-col gap-1 justify-center px-5 w-full">
             <h1 className="text-6xl font-bold">Make working with grades easy</h1>
@@ -33,7 +33,7 @@ const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`
           </CodeBlock>
         </div>
       </div>
-      <div className="ml-5 mt-20">
+      <div className="ml-5 mt-30">
         <h1 className="text-2xl font-medium">All you need</h1>
         <div className="flex flex-wrap gap-5 mt-3">
             <div className="p-4 w-full bg-accent rounded-md">
