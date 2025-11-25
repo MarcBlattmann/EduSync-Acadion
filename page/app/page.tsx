@@ -36,8 +36,16 @@ const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`
       <div className="ml-5 mt-30">
         <h1 className="text-2xl font-medium">All you need</h1>
         <div className="flex flex-wrap gap-5 mt-3">
-            <div className="p-4 w-1/2 h-50 bg-accent rounded-md">
-              Grade Conversion
+            <div className="p-4 w-1/2 flex justify-end flex-col h-50 bg-accent rounded-md relative overflow-hidden">
+              <div 
+                className="absolute h-full inset-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: "url('/ConvertBG.png')" }}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-accent via-accent to-transparent opacity-90" />
+              <div className="flex flex-col relative z-10">
+                <span className="text-2xl font-semibold text-white">Grade Conversion</span>
+                <span className="text-white/90 max-w-130">Just pass the grade, the source system, and the target system arguments, and it returns the converted value instantly.</span>
+              </div>
             </div>
             <div className="h-15">
               Test
