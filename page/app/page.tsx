@@ -36,7 +36,7 @@ const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`
       <div className="ml-5 mt-30">
         <h1 className="text-2xl font-medium">All you need</h1>
         <div className="flex flex-wrap gap-5 mt-3">
-            <div className="p-4 w-full bg-accent rounded-md">
+            <div className="p-4 w-1/2 h-50 bg-accent rounded-md">
               Grade Conversion
             </div>
             <div className="h-15">
