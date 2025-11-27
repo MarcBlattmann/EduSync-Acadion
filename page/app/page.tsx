@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/code-block";
-import { Code } from "lucide-react";
+import { Code, TrendingUp } from "lucide-react";
 
 export default function Home() {
   return (
@@ -35,26 +35,27 @@ const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`
       </div>
       <div className="ml-5 mt-30">
         <h1 className="text-2xl font-medium">All you need</h1>
-        <div className="flex flex-wrap gap-5 mt-3">
-            <div className="p-4 w-1/2 flex justify-end flex-col md:h-50 h-70 bg-accent rounded-md relative overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-3">
+            <div className="p-4 flex justify-end flex-col md:h-50 h-70 bg-accent rounded-md relative overflow-hidden">
               <div 
                 className="absolute h-full inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: "url('/ConvertBG.png')" }}
               />
               <div className="absolute inset-0 bg-linear-to-t from-accent via-accent to-transparent opacity-90" />
               <div className="flex flex-col relative z-10">
-                <span className="text-2xl font-semibold text-white">Grade Conversion</span>
-                <span className="text-white/90 max-w-130">Just pass the grade, the source system, and the target system arguments, and it returns the converted value instantly.</span>
+                <span className="text-2xl font-semibold text-white">Instant Grade Conversion</span>
+                <span className="text-white/90 max-w-130">Transform grades across international grading systems instantly. Perfect for university transfers  job applications, and mutch more.</span>
               </div>
             </div>
-            <div className="h-15">
-              Test
-            </div>
-            <div className="h-15">
-              Test
-            </div>
-            <div className="h-15">
-              Test
+            <div className="p-4 flex justify-end flex-col md:h-50 h-70 bg-green-600 rounded-md relative overflow-hidden">
+              <div className="absolute inset-0 bg-linear-to-t from-green-600 via-green-600 to-transparent opacity-90" />
+              <div className="flex items-center justify-center absolute inset-0">
+                <TrendingUp className="w-16 h-16 text-white opacity-20" />
+              </div>
+              <div className="flex flex-col relative z-10">
+                <span className="text-2xl font-semibold text-white">Smart Grade Insights</span>
+                <span className="text-white/90 max-w-130">Understand any grade instantly with visual color codes and descriptions. Build smarter feedback and reporting tools.</span>
+              </div>
             </div>
         </div>
       </div>
