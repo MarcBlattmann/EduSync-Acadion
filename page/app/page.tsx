@@ -34,31 +34,7 @@ const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`
         </div>
       </div>
       <div className="ml-5 mt-30">
-        <h1 className="text-2xl font-medium">All you need</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-3">
-            <div className="p-4 flex justify-end flex-col md:h-50 h-70 bg-accent rounded-md relative overflow-hidden">
-              <div 
-                className="absolute h-full inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/ConvertBG.png')" }}
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-accent via-accent to-transparent opacity-90" />
-              <div className="flex flex-col relative z-10">
-                <span className="text-2xl font-semibold text-white">Instant Grade Conversion</span>
-                <span className="text-white/90 max-w-130">Transform grades across international grading systems instantly. Perfect for university transfers  job applications, and mutch more.</span>
-              </div>
-            </div>
-            <div className="p-4 flex justify-end flex-col md:h-50 h-70 bg-accent rounded-md relative overflow-hidden">
-              <div 
-                className="absolute h-full inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/SmartGradeInsights.png')" }}
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-accent via-accent to-transparent opacity-90" />
-              <div className="flex flex-col relative z-10">
-                <span className="text-2xl font-semibold text-white">Smart Grade Insights</span>
-                <span className="text-white/90 max-w-130">Understand any grade instantly with visual color codes and descriptions. Build smarter feedback and reporting tools.</span>
-              </div>
-            </div>
-        </div>
+        
       </div>
     </>
   );
