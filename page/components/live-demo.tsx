@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { getAllSystems, convertGradeToGrade, getColor, getGradeDescription, GradeSystem } from 'edusync-acadion';
+import { CodeBlock } from '@/components/code-block';
 import {
   Command,
   CommandInput,
@@ -12,7 +13,7 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, Code } from 'lucide-react';
 
 interface SystemSelectorProps {
   systems: GradeSystem[];
@@ -82,7 +83,7 @@ function SystemSelector({ systems, selectedSystem, onSelect, placeholder }: Syst
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none dark:bg-input/30"
+        className="flex h-9 w-full items-center justify-between rounded-md bg-accent px-3 py-2 text-sm focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none"
       >
         {selectedSystem ? (
           <div className="flex items-center gap-2">
@@ -267,7 +268,7 @@ export function LiveDemo() {
             placeholder="Enter grade"
             value={inputGrade}
             onChange={(e) => setInputGrade(e.target.value)}
-            className="h-10"
+            className="h-10 bg-accent! border-0 shadow-none dark:bg-accent!"
           />
         </div>
 
@@ -287,7 +288,7 @@ export function LiveDemo() {
           />
           
           {/* Result Display */}
-          <div className="h-10 rounded-md border bg-muted/30 px-3 flex items-center justify-between">
+          <div className="h-10 rounded-md bg-accent px-3 flex items-center justify-between">
             {result ? (
               <>
                 <span 
@@ -308,6 +309,24 @@ export function LiveDemo() {
           </div>
         </div>
       </div>
+
+      {/* Code Example */}
+      {fromSystem && toSystem && inputGrade && !error && (
+        <div className="mt-4 flex flex-col gap-2">
+          <div className="prose w-full dark:prose-invert max-w-none">
+            <CodeBlock className="language-javascript">
+{`import { getSystemById, convertGradeToGrade, getColor, getGradeDescription } from 'edusync-acadion';
+
+const fromSystem = getSystemById(${fromSystem.id}); // ${fromSystem.name}
+const toSystem = getSystemById(${toSystem.id}); // ${toSystem.name}
+
+const result = convertGradeToGrade(fromSystem, toSystem, ${inputGrade});
+const color = getColor(toSystem, result.grade);
+const description = getGradeDescription(toSystem, result.grade);`}
+            </CodeBlock>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

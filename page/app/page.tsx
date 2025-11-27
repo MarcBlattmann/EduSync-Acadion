@@ -22,23 +22,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="prose w-full dark:prose-invert max-w-none px-5 mt-15">
-          <CodeBlock className="language-javascript">
-            {`import { convertGradeToGrade, getSystemById } from 'edusync-acadion';
-
-const swissSystem = getSystemById(1);
-const germanSystem = getSystemById(2);
-
-const SwissGrade = 5.5;
-const GermanGrade = convertGradeToGrade(swissSystem, germanSystem, SwissGrade);`}
-          </CodeBlock>
-        </div>
       </div>
-      <div className="ml-5 mt-30 px-5">
+      <div className=" mt-30 px-5">
         <div>
           <h1 className="text-3xl font-bold">Grade Convertion</h1>
           <a className="text-md text-muted-foreground font-semibold">Convert grades between any two grading systems instantly</a>
-          <div className="bg-accent mt-5 p-5 rounded-md">
+          <div className="mt-5">
             <LiveDemo />
           </div>
         </div>
