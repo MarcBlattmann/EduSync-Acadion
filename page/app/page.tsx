@@ -19,7 +19,7 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <Image src="/Drawing.png" alt="Background Drawing" className="absolute right-0 bottom-0 w-auto min-w-max pointer-events-none" style={{height: '700px', zIndex: 0}} width={4000} height={4000} />
+      <Image src="/Drawing.png" alt="Background Drawing" className="absolute right-0 bottom-0 w-auto min-w-max pointer-events-none h-[300px] sm:h-[450px] md:h-[550px] lg:h-[700px]" style={{zIndex: 0}} width={4000} height={4000} />
     </div>
   );
 }
