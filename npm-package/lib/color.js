@@ -1,6 +1,9 @@
 const { convertToPercent } = require('./conversion');
 const { findClosestByPercent, findClosestByGrade } = require('./helpers');
 
+const PASSING_PERCENT = 60;
+const SATISFACTORY_PERCENT = 80;
+
 /**
  * Get the color representation of a grade within a specific Grade-system.
  * @param { Object } system - The Grade-system object
@@ -10,8 +13,8 @@ const { findClosestByPercent, findClosestByGrade } = require('./helpers');
 function getColor(system, grade) {
   const percent = convertToPercent(system, grade);
 
-  if (percent < system.passing_percent) return 'red';
-  if (percent < system.satisfactory_percent) return 'orange';
+  if (percent < PASSING_PERCENT) return 'red';
+  if (percent < SATISFACTORY_PERCENT) return 'orange';
   return 'green';
 }
 

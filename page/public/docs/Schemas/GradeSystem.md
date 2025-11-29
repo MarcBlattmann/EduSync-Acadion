@@ -14,10 +14,10 @@ Represents a grading system with its configuration and grade mappings.
 | `name` | `string` | ✓ | Name of the grading system |
 | `last_modified` | `string` | - | Last modification date |
 | `used_in` | `string[]` | - | List of countries/regions using this system |
-| `passing_percent` | `number` | - | Minimum percentage to pass |
-| `satisfactory_percent` | `number` | - | Minimum percentage for satisfactory grade |
 | `info` | `string` | - | Additional information about the system |
 | `mappings` | [`Mapping[]`](/docs/Schemas/Mappings) | ✓ | Grade to percentage mappings |
+
+> **Note:** The passing threshold is **60%** and the satisfactory threshold is **80%** for all grading systems.
 
 ## Example
 
@@ -26,8 +26,6 @@ Represents a grading system with its configuration and grade mappings.
   id: 1,
   name: "US Letter Grade",
   used_in: ["US"],
-  passing_percent: 60,
-  satisfactory_percent: 70,
   info: "Standard US grading system (A-F)",
   mappings: [
     { grade: "A", percent: 90 },

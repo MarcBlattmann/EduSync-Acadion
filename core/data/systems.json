@@ -5,8 +5,6 @@
             "name": "Hexa (1-6)",
             "last_modified": "2025-11-29",
             "used_in": ["CH", "LI"],
-            "passing_percent": 60,
-            "satisfactory_percent": 80,
             "info": "### Grading in Exams\nExam grades are calculated directly from the number of points earned. This often results in decimal values such as **5.37** or **5.8**.\n\n### Passing Threshold\nA grade of **4.0** is the minimum required to pass. Anything below **4.0** is considered failing.\n\n### Final Grade Rounding\nWhile exam grades may include decimals, final semester grades are usually rounded according to the school's policy, most commonly to the nearest **0.5** or **0.1**.",
             "mappings": [
                 { "grade": 6,   "percent": 100, "description": "Very good" },
@@ -27,8 +25,6 @@
             "name": "Hexa (6-1)",
             "last_modified": "2025-11-29",
             "used_in": ["DE"],
-            "passing_percent": 60,
-            "satisfactory_percent": 80,
             "info": "### Passing Threshold\nA grade of **4.0** is the minimum required to pass. Anything above **4.0** is considered failing.",
             "mappings": [
                 { "grade": 1,   "percent": 100, "description": "Very good" },
@@ -49,8 +45,6 @@
             "name": "Hexa (6-1) (with +/-)",
             "last_modified": "2025-11-29",
             "used_in": ["DE"],
-            "passing_percent": 60,
-            "satisfactory_percent": 80,
             "info": "### Passing Threshold\nA grade of **4.0** is the minimum required to pass. This variant includes plus/minus grades like 1+, 2-, etc.",
             "mappings": [
                 { "grade": "1+", "percent": 100, "description": "Very good" },
