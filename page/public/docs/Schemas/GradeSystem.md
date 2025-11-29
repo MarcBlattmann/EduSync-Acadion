@@ -24,12 +24,16 @@ Represents a grading system with its configuration and grade mappings.
 ```typescript
 {
   id: 1,
-  name: "US Letter Grade",
-  used_in: ["US"],
-  info: "Standard US grading system (A-F)",
+  name: "Hexa (1-6)",
+  last_modified: "2025-11-29",
+  used_in: ["CH", "LI"],
+  info: "### Passing Threshold\nA grade of **4.0** is the minimum required to pass.",
   mappings: [
-    { grade: "A", percent: 90 },
-    { grade: "B", percent: 80 },
+    { grade: 6,   percent: 100, description: "Very good" },
+    { grade: 5.5, percent: 90,  description: "Good to Very good" },
+    { grade: 5,   percent: 80,  description: "Good" },
+    { grade: 4.5, percent: 70,  description: "Satisfactory" },
+    { grade: 4,   percent: 60,  description: "Sufficient" },
     // ...more mappings
   ]
 }
