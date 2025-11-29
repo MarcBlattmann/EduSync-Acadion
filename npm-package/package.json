@@ -1,6 +1,6 @@
 {
   "name": "edusync-acadion",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Grade system data and utilities for academic grading worldwide.",
   "main": "index.js",
   "types": "index.d.ts",
