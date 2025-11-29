@@ -9,14 +9,14 @@
             "satisfactory_percent": 75,
             "info": "### Grading in Exams\nExam grades are calculated directly from the number of points earned. This often results in decimal values such as **5.37** or **5.8**.\n\n### Passing Threshold\nA grade of **4.0** is the minimum required to pass. Anything below **4.0** is considered failing.\n\n### Final Grade Rounding\nWhile exam grades may include decimals, final semester grades are usually rounded according to the school's policy, most commonly to the nearest **0.5** or **0.1**.",
             "mappings": [
-                { "grade": 1,   "percent": 0,    "description": "Very poor" },
-                { "grade": 2,   "percent": 25,   "description": "Poor" },
-                { "grade": 3,   "percent": 45,   "description": "Insufficient" },
-                { "grade": 4,   "percent": 60,   "description": "Sufficient" },
-                { "grade": 4.5, "percent": 70,   "description": "Satisfying" },
+                { "grade": 6,   "percent": 100,  "description": "Very good" },
+                { "grade": 5.5, "percent": 90,   "description": "Good to Very good" },
                 { "grade": 5,   "percent": 80,   "description": "Good" },
-                { "grade": 5.5, "percent": 90,   "description": "Good to very good" },
-                { "grade": 6,   "percent": 100,  "description": "Very good" }
+                { "grade": 4.5, "percent": 70,   "description": "Satisfying" },
+                { "grade": 4,   "percent": 60,   "description": "Sufficient" },
+                { "grade": 3,   "percent": 45,   "description": "Insufficient" },
+                { "grade": 2,   "percent": 25,   "description": "Poor" },
+                { "grade": 1,   "percent": 0,    "description": "Very poor" }
             ]
         },
         {
