@@ -12,6 +12,32 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
+import { Spinner } from "@/components/ui/spinner"
+
+function FlagImage({ country, width, height, shouldStretch }: { country: string; width: number; height: number; shouldStretch: boolean }) {
+  const [isLoading, setIsLoading] = useState(true)
+
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{ width: shouldStretch ? '32px' : `${width}px`, height: `${height}px` }}
+      title={country}
+    >
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-muted">
+          <Spinner className="size-3" />
+        </div>
+      )}
+      <Image
+        alt={country}
+        src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${country}.svg`}
+        fill
+        className="object-cover"
+        onLoad={() => setIsLoading(false)}
+      />
+    </div>
+  )
+}
 
 export default function SystemsSearch() {
   const [open, setOpen] = useState(false)
@@ -107,19 +133,13 @@ export default function SystemsSearch() {
                           const remainingInLastRow = count % cols || cols
                           const shouldStretch = isLastRow && remainingInLastRow === 1 && count > 1
                           return (
-                            <div
+                            <FlagImage
                               key={country}
-                              className="relative overflow-hidden"
-                              style={{ width: shouldStretch ? '32px' : `${flagWidth}px`, height: `${flagHeight}px` }}
-                              title={country}
-                            >
-                            <Image
-                              alt={country}
-                              src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${country}.svg`}
-                              fill
-                              className="object-cover"
+                              country={country}
+                              width={flagWidth}
+                              height={flagHeight}
+                              shouldStretch={shouldStretch}
                             />
-                          </div>
                           )
                         })}
                       </div>
