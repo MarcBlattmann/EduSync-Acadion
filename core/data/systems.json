@@ -7,7 +7,7 @@
             "used_in": ["CH", "LI"],
             "passing_percent": 60,
             "satisfactory_percent": 75,
-            "info": "Getting an average grade between **5.5** and **6.0** is very difficult.\n\n### Exams\nIn exams, grades can go up or down by tenths or even hundredths (like 5.37 or 5.8), because the grade is calculated directly from the number of points you score.\n\n### Passing Grade\nA grade of **4.0** is the minimum passing grade. Grades below 4.0 are considered failing.\n\n### Rounding\nFinal semester grades are typically rounded to the nearest 0.5 or 0.1, depending on the school's policy.",
+            "info": "### Grading in Exams\nExam grades are calculated directly from the number of points earned. This often results in decimal values such as **5.37** or **5.8**.\n\n### Passing Threshold\nA grade of **4.0** is the minimum required to pass. Anything below **4.0** is considered failing.\n\n### Final Grade Rounding\nWhile exam grades may include decimals, final semester grades are usually rounded according to the school's policy, most commonly to the nearest **0.5** or **0.1**.",
             "mappings": [
                 { "grade": 1,   "percent": 0,    "description": "Very poor" },
                 { "grade": 2,   "percent": 25,   "description": "Poor" },
@@ -21,18 +21,22 @@
         },
         {
             "id": 2,
-            "name": "5-Point",
-            "last_modified": "2025-11-01",
-            "used_in": ["PT"],
+            "name": "Hexa (6-1)",
+            "last_modified": "2025-11-29",
+            "used_in": ["DE"],
             "passing_percent": 50,
-            "satisfactory_percent": 70,
-            "info": "The 5-point grading scale is a simplified assessment system that provides clear performance categories with a straightforward progression from poor to excellent.",
+            "satisfactory_percent": 77,
+            "info": "### Passing Threshold\nA grade of **4.0** is the minimum required to pass. Anything above **4.0** is considered failing.",
             "mappings": [
-                { "grade": 1, "percent": 0,    "description": "Poor" },
-                { "grade": 2, "percent": 25,   "description": "Unsatisfactory" },
-                { "grade": 3, "percent": 50,   "description": "Satisfactory" },
-                { "grade": 4, "percent": 80,   "description": "Good" },
-                { "grade": 5, "percent": 100,  "description": "Very good" }
+                { "grade": 1,   "percent": 100,  "description": "Very good" },
+                { "grade": 1.5, "percent": 95,   "description": "Good to Very good" },
+                { "grade": 2,   "percent": 85,   "description": "Good" },
+                { "grade": 2.5, "percent": 77,   "description": "Satisfactory to Good" },
+                { "grade": 3,   "percent": 70,   "description": "Satisfactory" },
+                { "grade": 3.5, "percent": 62,   "description": "Sufficient to Satisfactory" },
+                { "grade": 4,   "percent": 50,   "description": "Sufficient" },
+                { "grade": 5,   "percent": 25,   "description": "Insufficient" },
+                { "grade": 6,   "percent": 0,    "description": "Very poor" }
             ]
         }
     ]
