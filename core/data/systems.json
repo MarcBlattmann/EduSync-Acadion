@@ -55,19 +55,19 @@
             "mappings": [
                 { "grade": "1+", "percent": 100, "description": "Very good" },
                 { "grade": "1",  "percent": 96,  "description": "Very good" },
-                { "grade": "1-", "percent": 93,  "description": "Very good" },
-                { "grade": "2+", "percent": 87,  "description": "Good" },
+                { "grade": "1-", "percent": 93,  "description": "Good to Very good" },
+                { "grade": "2+", "percent": 87,  "description": "Good to Very good" },
                 { "grade": "2",  "percent": 80,  "description": "Good" },
-                { "grade": "2-", "percent": 73,  "description": "Good" },
-                { "grade": "3+", "percent": 67,  "description": "Satisfactory" },
+                { "grade": "2-", "percent": 73,  "description": "Satisfactory to Good" },
+                { "grade": "3+", "percent": 67,  "description": "Satisfactory to Good" },
                 { "grade": "3",  "percent": 60,  "description": "Satisfactory" },
-                { "grade": "3-", "percent": 53,  "description": "Satisfactory" },
-                { "grade": "4+", "percent": 47,  "description": "Sufficient" },
+                { "grade": "3-", "percent": 53,  "description": "Sufficient to Satisfactory" },
+                { "grade": "4+", "percent": 47,  "description": "Sufficient to Satisfactory" },
                 { "grade": "4",  "percent": 40,  "description": "Sufficient" },
-                { "grade": "4-", "percent": 33,  "description": "Sufficient" },
-                { "grade": "5+", "percent": 27,  "description": "Insufficient" },
+                { "grade": "4-", "percent": 33,  "description": "Insufficient to Sufficient" },
+                { "grade": "5+", "percent": 27,  "description": "Insufficient to Sufficient" },
                 { "grade": "5",  "percent": 20,  "description": "Insufficient" },
-                { "grade": "5-", "percent": 10,  "description": "Insufficient" },
+                { "grade": "5-", "percent": 10,  "description": "Very poor to Insufficient" },
                 { "grade": "6",  "percent": 0,   "description": "Very poor" }
             ]
         }
