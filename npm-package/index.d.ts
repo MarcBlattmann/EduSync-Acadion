@@ -9,8 +9,6 @@ declare module 'edusync-acadion' {
     name: string;
     last_modified?: string;
     used_in?: string[];
-    passing_percent?: number;
-    satisfactory_percent?: number;
     info?: string;
     mappings: Mapping[];
     [key: string]: any;

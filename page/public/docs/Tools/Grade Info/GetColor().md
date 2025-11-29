@@ -6,25 +6,30 @@ icon: Palette
 
 | Parameters |                   Returns               |
 |------------|-----------------------------------------|
-| [`GradeSystem`](/docs/Schemas/GradeSystem), number (grade) | string (color) |
+| [`GradeSystem`](/docs/Schemas/GradeSystem), number \| string (grade) | string (color) |
 
-Provides a color that you can use in your UI to highlight a grade. The color is determined based on the **passing grade** and **satisfactory grade** values.
+Provides a color that you can use in your UI to highlight a grade. The color is determined based on fixed percentage thresholds.
+
+## Thresholds
+- **Passing:** 60%
+- **Satisfactory:** 80%
 
 ## Returns
 It returns a string representing the color:
 
-`"red"` - When the grade is **below** the passing grade.
+`"red"` - When the grade is **below 60%** (failing).
 
-`"orange"` - When the grade is **above** the passing grade but **below** the satisfactory grade.
+`"orange"` - When the grade is **between 60% and 80%** (passing but not satisfactory).
 
-`"green"` - When the grade is **equal to or above** the satisfactory grade.
+`"green"` - When the grade is **80% or above** (satisfactory).
 
 ## Example
 ```typescript
 import { getColor, getSystemById } from 'edusync-acadion';
 
-const system = getSystemById(1);
-const grade = 4.5;
+const system = getSystemById(1); // Swiss Hexa (1-6)
 
-const color = getColor(system, grade);
+getColor(system, 5);   // returns "green" (80% - Good)
+getColor(system, 4.5); // returns "orange" (70% - Satisfactory)
+getColor(system, 3);   // returns "red" (40% - Insufficient)
 ```
