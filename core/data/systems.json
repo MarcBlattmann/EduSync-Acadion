@@ -7,7 +7,7 @@
             "used_in": ["CH", "LI"],
             "passing_percent": 60,
             "satisfactory_percent": 75,
-            "info": "Getting an average grade between **5.5** and **6.0** is very difficult.\n\n### Exams\nIn exams, grades can go up or down by tenths or even hundredths (like 5.37 or 5.8), because the grade is calculated directly from the number of points you score.",
+            "info": "Getting an average grade between **5.5** and **6.0** is very difficult.\n\n### Exams\nIn exams, grades can go up or down by tenths or even hundredths (like 5.37 or 5.8), because the grade is calculated directly from the number of points you score.\n\n### Passing Grade\nA grade of **4.0** is the minimum passing grade. Grades below 4.0 are considered failing.\n\n### Rounding\nFinal semester grades are typically rounded to the nearest 0.5 or 0.1, depending on the school's policy.",
             "mappings": [
                 { "grade": 1,   "percent": 0,    "description": "Very poor" },
                 { "grade": 2,   "percent": 25,   "description": "Poor" },
