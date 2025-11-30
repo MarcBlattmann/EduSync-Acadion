@@ -2,9 +2,10 @@
 
 > Grade system utilities to convert and describe academic grades from various national systems.
 
-[Website](https://acadion.edusync.ch/)
-
 [![NPM](https://nodei.co/npm/edusync-acadion.png)](https://npmjs.org/package/edusync-acadion)
+
+Visit our Docs and System Explorer on our [Website](https://acadion.edusync.ch/).
+
 
 ## What this is
 
